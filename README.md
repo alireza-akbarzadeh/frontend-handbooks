@@ -1,46 +1,57 @@
-# Astro Starter Kit: Basics
+# 🌐 Frontend Handbook — Advanced Guide Powered by Astro
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+<p align="center">
+  <img src="./logo/light.svg" alt="Frontend Handbook Logo" width="400" />
+</p>
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+> **Your comprehensive guide to modern frontend development — built with [Astro](https://astro.build), designed for speed, structure, and serious developers.**
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+## 🚀 Welcome
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+Welcome to the **Frontend Handbook**, your advanced, modular reference for mastering the modern web. Built with **Astro**, this handbook blends blazing performance, beautiful design, and a battle-tested frontend curriculum.
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Whether you're sharpening your fundamentals or diving into bleeding-edge topics like **Islands Architecture**, **SSR**, and **Web Performance Optimization**, this is your map to modern frontend excellence.
 
-## 🧞 Commands
+---
 
-All commands are run from the root of the project, from a terminal:
+## 📦 What You’ll Learn
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+This handbook is broken into structured, expert-level chapters that grow with you:
 
-## 👀 Want to learn more?
+### 📐 Core Web Technologies
+- ✅ Semantic HTML5
+- ✅ Responsive & Utility-first CSS (Tailwind, Grid, Flexbox)
+- ✅ Modern JavaScript (ES6+, Fetch, Promises, async/await)
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+### ⚙️ Frameworks & Libraries
+- 🔥 **Astro** (SSG, SSR, Islands Architecture)
+- ⚛️ React (Client components & islands)
+- ⚡️ Vue, Svelte, and Angular (with Astro integrations)
+
+### 🔧 Developer Tooling
+- 🧠 Git, GitHub, and CLI mastery
+- 🛠️ Vite, npm, pnpm, and bundler setup
+- 🌐 SEO, A11y (Accessibility), and Web Vitals
+
+### 🧱 Architecture & Patterns
+- ♻️ Component-driven development
+- 🔩 State management & hydration
+- 🧰 Project scaffolding for scale
+
+---
+
+## 🛠️ Getting Started
+
+### 📦 Prerequisites
+- Node.js `>= 19`
+- pnpm or npm
+
+### 📥 Install and Run
+
+```bash
+git clone https://github.com/yourusername/frontend-handbook.git
+cd frontend-handbook
+pnpm install
+pnpm dev
