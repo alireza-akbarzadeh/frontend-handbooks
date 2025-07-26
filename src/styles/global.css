@@ -118,3 +118,58 @@
     @apply bg-background text-foreground;
   }
 }
+
+pre {
+  @apply p-4 rounded-lg bg-slate-100 dark:bg-slate-800/60 overflow-x-auto border border-slate-200 dark:border-slate-700;
+}
+
+code {
+  @apply font-mono text-sm;
+}
+
+/* Light syntax highlighting */
+code .comment { @apply text-slate-500; }
+code .keyword { @apply text-purple-600; }
+code .string { @apply text-green-600; }
+code .number { @apply text-amber-600; }
+code .tag { @apply text-blue-600; }
+code .attr-name { @apply text-emerald-600; }
+code .attr-value { @apply text-amber-600; }
+
+/* Dark mode syntax highlighting */
+.dark code .comment { @apply text-slate-400; }
+.dark code .keyword { @apply text-purple-400; }
+.dark code .string { @apply text-green-400; }
+.dark code .number { @apply text-amber-400; }
+.dark code .tag { @apply text-blue-400; }
+.dark code .attr-name { @apply text-emerald-400; }
+.dark code .attr-value { @apply text-amber-400; }
+
+/* Documentation specific styles */
+.docs-content h2 {
+  @apply mt-10 scroll-m-20 border-b border-b-slate-200 pb-2 text-2xl font-semibold tracking-tight first:mt-0 dark:border-b-slate-700;
+}
+
+.docs-content h3 {
+  @apply mt-8 scroll-m-20 text-xl font-semibold tracking-tight;
+}
+
+.docs-content h4 {
+  @apply mt-6 scroll-m-20 text-lg font-semibold tracking-tight;
+}
+
+.docs-content p {
+  @apply leading-7 [&:not(:first-child)]:mt-5;
+}
+
+.docs-content blockquote {
+  @apply mt-6 border-l-2 border-slate-300 pl-6 italic text-slate-800 dark:border-slate-600 dark:text-slate-200;
+}
+
+.docs-content ul {
+  @apply my-6 ml-6 list-disc [&>li]:mt-2;
+}
+
+.docs-content ol {
+  @apply my-6 ml-6 list-decimal [&>li]:mt-2;
+}

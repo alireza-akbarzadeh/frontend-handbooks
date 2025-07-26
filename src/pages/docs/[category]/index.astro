@@ -1,0 +1,173 @@
+---
+import DocLayout from '@/layouts/DocLayout.astro';
+import { getCollection } from 'astro:content';
+import type { Doc } from '@/types/docs';
+
+// Generate paths for all categories
+export async function getStaticPaths() {
+    const allDocs = await getCollection('docs');
+
+    // Extract unique categories from file paths
+    const categories = [...new Set(
+        allDocs.map((doc: Doc) => doc.slug.split('/')[0])
+    )];
+
+    return categories.map(category => ({
+        params: { category },
+        props: { category }
+    }));
+}
+
+const { category } = Astro.props;
+
+// Get all docs for this category
+const allCategoryDocs = await getCollection('docs', (doc: Doc) => {
+    return doc.slug.startsWith(`${category}/`);
+});
+
+// Sort by order property if available
+const sortedDocs = allCategoryDocs.sort((a: Doc, b: Doc) => {
+    if (a.data.order !== undefined && b.data.order !== undefined) {
+        return a.data.order - b.data.order;
+    }
+    return a.data.title.localeCompare(b.data.title);
+});
+
+// Category metadata
+const categoryMetadata = {
+    javascript: {
+        title: 'JavaScript',
+        description: 'Modern JavaScript concepts, patterns, and best practices',
+        color: 'amber',
+        icon: '/icons/javascript.svg',
+        heroImage: '/images/javascript-hero.webp'
+    },
+    html: {
+        title: 'HTML',
+        description: 'Semantic HTML, accessibility, and structure',
+        color: 'blue',
+        icon: '/icons/html.svg',
+        heroImage: '/images/html-hero.webp'
+    },
+    css: {
+        title: 'CSS',
+        description: 'Styling, layouts, animations, and responsive design',
+        color: 'purple',
+        icon: '/icons/css.svg',
+        heroImage: '/images/css-hero.webp'
+    },
+    git: {
+        title: 'Git & GitHub',
+        description: 'Version control, collaboration, and workflows',
+        color: 'orange',
+        icon: '/icons/git.svg',
+        heroImage: '/images/git-hero.webp'
+    },
+    frameworks: {
+        title: 'Frameworks',
+        description: 'Modern frontend frameworks and libraries',
+        color: 'emerald',
+        icon: '/icons/frameworks.svg',
+        heroImage: '/images/frameworks-hero.webp'
+    },
+    tools: {
+        title: 'Developer Tools',
+        description: 'Build tools, testing, and development workflows',
+        color: 'slate',
+        icon: '/icons/tools.svg',
+        heroImage: '/images/tools-hero.webp'
+    }
+};
+
+// Fallback for categories not in the metadata
+const currentCategoryMeta = categoryMetadata[category] || {
+    title: category.charAt(0).toUpperCase() + category.slice(1),
+    description: `Documentation about ${category}`,
+    color: 'gray',
+    icon: '/icons/default.svg',
+    heroImage: '/images/default-hero.webp'
+};
+
+// Group docs by tags
+const tags = [...new Set(sortedDocs.flatMap(doc => doc.data.tags || []))];
+---
+
+<DocLayout
+        title={`${currentCategoryMeta.title} Documentation`}
+        description={currentCategoryMeta.description}
+        currentPath={`/docs/${category}`}
+>
+    <div class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+            <img src={currentCategoryMeta.icon} alt="" width="40" height="40" class="rounded-md" />
+            <h1 class="text-4xl font-bold">{currentCategoryMeta.title}</h1>
+        </div>
+        <p class="text-xl text-slate-600 dark:text-slate-400">
+            {currentCategoryMeta.description}
+        </p>
+    </div>
+
+    {tags.length > 0 && (
+            <div class="mb-10">
+                <div class="flex gap-2 flex-wrap">
+                    {tags.map(tag => (
+                            <a
+                                    href={`/docs/${category}?tag=${tag}`}
+                                    class={`px-3 py-1 rounded-full text-sm bg-${currentCategoryMeta.color}-100 dark:bg-${currentCategoryMeta.color}-900/30 text-${currentCategoryMeta.color}-700 dark:text-${currentCategoryMeta.color}-400 hover:bg-${currentCategoryMeta.color}-200 dark:hover:bg-${currentCategoryMeta.color}-900/50 transition-colors`}
+                            >
+                                {tag}
+                            </a>
+                    ))}
+                </div>
+            </div>
+    )}
+
+    <!-- Documentation Articles -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        {sortedDocs.map((doc: Doc) => (
+                <a
+                        href={`/docs/${doc.slug}`}
+                        class={`p-6 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-${currentCategoryMeta.color}-300 dark:hover:border-${currentCategoryMeta.color}-800 transition-all bg-white dark:bg-slate-900/50 hover:shadow-md`}
+                >
+                    <h2 class={`text-xl font-bold mb-2 text-${currentCategoryMeta.color}-700 dark:text-${currentCategoryMeta.color}-400`}>
+                        {doc.data.title}
+                    </h2>
+                    <p class="text-slate-600 dark:text-slate-400 mb-3">
+                        {doc.data.description || ''}
+                    </p>
+                    {doc.data.tags && doc.data.tags.length > 0 && (
+                            <div class="flex gap-1 flex-wrap">
+                                {doc.data.tags.map(tag => (
+                                        <span class={`px-2 py-0.5 rounded-md text-xs bg-${currentCategoryMeta.color}-50 dark:bg-${currentCategoryMeta.color}-900/20 text-${currentCategoryMeta.color}-600 dark:text-${currentCategoryMeta.color}-400`}>
+                                {tag}
+                            </span>
+                                ))}
+                            </div>
+                    )}
+                </a>
+        ))}
+    </div>
+
+    <!-- Next Steps -->
+    <div class={`p-6 rounded-lg border border-${currentCategoryMeta.color}-200 dark:border-${currentCategoryMeta.color}-900/50 bg-${currentCategoryMeta.color}-50 dark:bg-${currentCategoryMeta.color}-900/20`}>
+        <h2 class={`text-xl font-bold mb-3 text-${currentCategoryMeta.color}-700 dark:text-${currentCategoryMeta.color}-400`}>Continue Learning</h2>
+        <p class="text-slate-700 dark:text-slate-300 mb-4">
+            Ready to dive deeper? Check out these related topics:
+        </p>
+        <div class="flex flex-wrap gap-3">
+            {Object.entries(categoryMetadata)
+                .filter(([key]) => key !== category)
+                .slice(0, 3)
+                .map(([key, meta]) => (
+                        <a
+                                href={`/docs/${key}`}
+                                class={`inline-flex items-center px-4 py-2 rounded-md bg-white dark:bg-slate-800 text-${meta.color}-600 dark:text-${meta.color}-400 hover:bg-${meta.color}-50 dark:hover:bg-${meta.color}-900/20 transition-colors`}
+                        >
+                            <img src={meta.icon} alt="" width="16" height="16" class="mr-2" />
+                            {meta.title}
+                        </a>
+                ))
+            }
+        </div>
+    </div>
+</DocLayout>

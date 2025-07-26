@@ -1,0 +1,278 @@
+---
+import DocLayout from '@/layouts/DocLayout.astro';
+import { getCollection } from 'astro:content';
+import type { Doc } from '@/types/docs';
+
+// Get all categories and count docs in each
+const allDocs = await getCollection('docs');
+const categories = [...new Set(
+    allDocs.map((doc: Doc) => doc.slug.split('/')[0])
+)];
+
+// Category metadata
+const categoryMetadata: Record<string, {
+    title: string;
+    description: string;
+    color: string;
+    icon: string;
+}> = {
+    javascript: {
+        title: 'JavaScript',
+        description: 'Modern JavaScript concepts, patterns, and best practices',
+        color: 'amber',
+        icon: '/icons/javascript.svg'
+    },
+    html: {
+        title: 'HTML',
+        description: 'Semantic HTML, accessibility, and structure',
+        color: 'blue',
+        icon: '/icons/html.svg'
+    },
+    css: {
+        title: 'CSS',
+        description: 'Styling, layouts, animations, and responsive design',
+        color: 'purple',
+        icon: '/icons/css.svg'
+    },
+    git: {
+        title: 'Git & GitHub',
+        description: 'Version control, collaboration, and workflows',
+        color: 'orange',
+        icon: '/icons/git.svg'
+    },
+    frameworks: {
+        title: 'Frameworks',
+        description: 'Modern frontend frameworks and libraries',
+        color: 'emerald',
+        icon: '/icons/frameworks.svg'
+    },
+    tools: {
+        title: 'Developer Tools',
+        description: 'Build tools, testing, and development workflows',
+        color: 'slate',
+        icon: '/icons/tools.svg'
+    }
+};
+
+// Get a count of docs for each category
+const categoryCounts = categories.map(category => {
+    const count = allDocs.filter((doc: Doc) => doc.slug.startsWith(`${category}/`)).length;
+    return {
+        category,
+        count,
+        ...categoryMetadata[category] || {
+            title: category.charAt(0).toUpperCase() + category.slice(1),
+            description: `Documentation about ${category}`,
+            color: 'gray',
+            icon: '/icons/default.svg'
+        }
+    };
+});
+
+// Get recently updated docs
+const recentDocs = allDocs
+    .filter((doc: Doc) => doc.data.updatedDate)
+    .sort((a: Doc, b: Doc) => {
+        return new Date(b.data.updatedDate).getTime() - new Date(a.data.updatedDate).getTime();
+    })
+    .slice(0, 5);
+
+// Get popular docs (could be based on a popularity field or just manually curated)
+const popularTopics = [
+    {
+        slug: 'javascript/es6',
+        title: 'ES6+ Features',
+        description: 'Modern JavaScript features including arrow functions, destructuring, and more',
+        category: 'javascript'
+    },
+    {
+        slug: 'html/semantics',
+        title: 'Semantic HTML',
+        description: 'Using the right HTML elements for better accessibility and SEO',
+        category: 'html'
+    },
+    {
+        slug: 'css/flexbox',
+        title: 'Flexbox Layout',
+        description: 'Creating flexible and responsive layouts with CSS Flexbox',
+        category: 'css'
+    },
+    {
+        slug: 'git/workflows',
+        title: 'Git Workflows',
+        description: 'Common Git workflows for teams and solo developers',
+        category: 'git'
+    }
+];
+---
+
+<DocLayout
+        title="Documentation"
+        description="Frontend Handbook Documentation - Your guide to modern web development"
+        currentPath="/docs"
+>
+    <div class="mb-12">
+        <h1 class="text-4xl font-bold mb-4">Frontend Handbook</h1>
+        <p class="text-xl text-slate-600 dark:text-slate-400">
+            Your advanced, modular reference for mastering the modern web
+        </p>
+    </div>
+
+    <!-- Category Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        {categoryCounts.map(({ category, count, title, description, color, icon }) => (
+                <a
+                        href={`/docs/${category}`}
+                        class={`group p-6 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-${color}-300 dark:hover:border-${color}-800 transition-all bg-white dark:bg-slate-900/50 hover:shadow-md`}
+                >
+                    <div class="flex items-center gap-3 mb-3">
+                        {icon && <img src={icon} alt="" width="24" height="24" />}
+                        <h2 class={`text-xl font-bold text-${color}-700 dark:text-${color}-400 group-hover:text-${color}-600 dark:group-hover:text-${color}-300`}>
+                            {title}
+                        </h2>
+                        <span class="ml-auto text-sm bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
+                        {count} {count === 1 ? 'article' : 'articles'}
+                    </span>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-400">
+                        {description}
+                    </p>
+                </a>
+        ))}
+    </div>
+
+    <!-- Popular Topics -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-6">Popular Topics</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {popularTopics.map(topic => {
+                const categoryData = categoryMetadata[topic.category] || { color: 'gray' };
+                return (
+                        <a
+                                href={`/docs/${topic.slug}`}
+                                class={`p-4 rounded-lg border border-${categoryData.color}-100 dark:border-${categoryData.color}-900/30 bg-${categoryData.color}-50 dark:bg-${categoryData.color}-900/10 hover:shadow-md transition-all`}
+                        >
+                            <h3 class={`font-medium text-${categoryData.color}-700 dark:text-${categoryData.color}-400 mb-2`}>
+                                {topic.title}
+                            </h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
+                                {topic.description}
+                            </p>
+                        </a>
+                );
+            })}
+        </div>
+    </div>
+
+    <!-- Recent Updates -->
+    {recentDocs.length > 0 && (
+            <div class="p-6 bg-slate-50 dark:bg-slate-900/50 rounded-lg border border-slate-200 dark:border-slate-800 mb-10">
+                <h2 class="text-xl font-bold mb-4">Recently Updated</h2>
+                <ul class="space-y-3">
+                    {recentDocs.map((doc: Doc) => {
+                        const [category, slug] = doc.slug.split('/');
+                        const categoryData = categoryMetadata[category] || { color: 'gray' };
+                        return (
+                                <li>
+                                    <a
+                                            href={`/docs/${doc.slug}`}
+                                            class="group flex items-start hover:bg-white dark:hover:bg-slate-800/50 p-2 -mx-2 rounded-md"
+                                    >
+                                        <span class={`w-2 h-2 mt-1.5 rounded-full bg-${categoryData.color}-500 mr-3 flex-shrink-0`}></span>
+                                        <div>
+                                    <span class="block font-medium text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                        {doc.data.title}
+                                    </span>
+                                            <span class="block text-sm text-slate-500 dark:text-slate-400">
+                                        Updated {new Date(doc.data.updatedDate).toLocaleDateString()} • {categoryData.title}
+                                    </span>
+                                        </div>
+                                    </a>
+                                </li>
+                        );
+                    })}
+                </ul>
+            </div>
+    )}
+
+    <!-- Getting Started Guide -->
+    <div class="bg-blue-50 dark:bg-blue-950/50 p-6 rounded-lg border border-blue-100 dark:border-blue-900">
+        <h2 class="text-xl font-bold text-blue-700 dark:text-blue-400 mb-4">New to Web Development?</h2>
+        <p class="text-slate-700 dark:text-slate-300 mb-4">
+            If you're just getting started, we recommend following our learning path:
+        </p>
+        <ol class="space-y-3 list-decimal pl-5 mb-6">
+            <li class="text-slate-700 dark:text-slate-300">
+                <a href="/docs/html/semantics" class="text-blue-600 dark:text-blue-400 hover:underline">
+                    Start with HTML semantics
+                </a>
+            </li>
+            <li class="text-slate-700 dark:text-slate-300">
+                <a href="/docs/css/basics" class="text-blue-600 dark:text-blue-400 hover:underline">
+                    Learn CSS fundamentals
+                </a>
+            </li>
+            <li class="text-slate-700 dark:text-slate-300">
+                <a href="/docs/javascript/es6" class="text-blue-600 dark:text-blue-400 hover:underline">
+                    Master modern JavaScript
+                </a>
+            </li>
+            <li class="text-slate-700 dark:text-slate-300">
+                <a href="/docs/frameworks/overview" class="text-blue-600 dark:text-blue-400 hover:underline">
+                    Explore frameworks
+                </a>
+            </li>
+        </ol>
+        <a
+                href="/docs/introduction"
+                class="inline-flex items-center px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+        >
+            Start Learning Path
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+        </a>
+    </div>
+
+    <!-- Contribute Section -->
+    <div class="mt-12 p-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50">
+        <div class="flex items-start">
+            <div class="flex-1">
+                <h2 class="text-xl font-bold mb-2">Contribute to the Handbook</h2>
+                <p class="text-slate-600 dark:text-slate-400 mb-4">
+                    This handbook is an open-source project. Help us make it better!
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    <a
+                            href="https://github.com/yourusername/frontend-handbook"
+                            class="inline-flex items-center px-3 py-1.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-sm"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.481C17.139 18.193 20 14.442 20 10.017 20 4.484 15.522 0 10 0z" clip-rule="evenodd" />
+                        </svg>
+                        GitHub Repository
+                    </a>
+                    <a
+                            href="#"
+                            class="inline-flex items-center px-3 py-1.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-sm"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd" />
+                        </svg>
+                        Discuss & Suggest
+                    </a>
+                    <a
+                            href="#"
+                            class="inline-flex items-center px-3 py-1.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-sm"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+                        </svg>
+                        Report Issues
+                    </a>
+                </div>
+            </div>
+            <div class="hidden md:block w-32 h-32 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 opacity-80"></div>
+        </div>
+    </div>
+</DocLayout>

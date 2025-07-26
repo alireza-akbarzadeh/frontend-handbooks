@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import {Button, buttonVariants} from '@/components/ui/button';
 import { Code2 } from 'lucide-react';
 
 export const Header = () => {
@@ -14,30 +14,37 @@ export const Header = () => {
           </div>
           <div className="hidden md:flex items-center space-x-8">
             <a
-              href="#courses"
+              href="/courses"
               className="text-gray-300 hover:text-white transition-colors"
             >
               Courses
             </a>
             <a
-              href="#features"
+              href="/docs"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              Docs
+              </a>
+            <a
+              href="/features"
               className="text-gray-300 hover:text-white transition-colors"
             >
               Features
             </a>
             <a
-              href="#pricing"
+              href="/pricing"
               className="text-gray-300 hover:text-white transition-colors"
             >
               Pricing
             </a>
-            <Button
-              variant="outline"
-              className="border-emerald-500 text-emerald-400 hover:bg-emerald-500 hover:text-white bg-transparent"
+            <a
+                href="/login"
+              className={buttonVariants({className:"border-emerald-500 text-emerald-400 hover:bg-emerald-500 hover:text-white bg-transparent",variant: "outline"})}
             >
-              Sign In
-            </Button>
-            <Button className="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600">
+              LogIn
+            </a>
+            <Button
+                className="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600">
               Start Learning
             </Button>
           </div>
