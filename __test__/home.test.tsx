@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import { Footer } from '@/components/common/footer';
+import { Footer } from '../src/components/common/footer';
 
 describe('Footer', () => {
   it('renders the brand name', () => {
