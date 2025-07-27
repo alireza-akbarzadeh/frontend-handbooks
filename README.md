@@ -11,21 +11,25 @@ Whether you're sharpening your fundamentals or diving into bleeding-edge topics 
 This handbook is broken into structured, expert-level chapters that grow with you:
 
 ### 📐 Core Web Technologies
+
 - ✅ Semantic HTML5
 - ✅ Responsive & Utility-first CSS (Tailwind, Grid, Flexbox)
 - ✅ Modern JavaScript (ES6+, Fetch, Promises, async/await)
 
 ### ⚙️ Frameworks & Libraries
+
 - 🔥 **Astro** (SSG, SSR, Islands Architecture)
 - ⚛️ React (Client components & islands)
 - ⚡️ Vue, Svelte, and Angular (with Astro integrations)
 
 ### 🔧 Developer Tooling
+
 - 🧠 Git, GitHub, and CLI mastery
 - 🛠️ Vite, npm, pnpm, and bundler setup
 - 🌐 SEO, A11y (Accessibility), and Web Vitals
 
 ### 🧱 Architecture & Patterns
+
 - ♻️ Component-driven development
 - 🔩 State management & hydration
 - 🧰 Project scaffolding for scale
@@ -35,17 +39,18 @@ This handbook is broken into structured, expert-level chapters that grow with yo
 ## 🛠️ Getting Started
 
 ### 📦 Prerequisites
+
 - Node.js `>= 19`
 - pnpm or npm
 
 ### 📥 Install and Run
 
 ```bash
-git clone https://github.com/yourusername/frontend-handbook.git  
+git clone https://github.com/alireza-akbarzadeh/frontend-handbook.git
 cd frontend-handbook
 pnpm install
 pnpm dev
-````
+```
 
 Then visit [`http://localhost:4321`](http://localhost:4321)
 
@@ -64,22 +69,22 @@ Then visit [`http://localhost:4321`](http://localhost:4321)
 
 ### 🧭 Table of docss
 
-* `01-introduction/`
-* `02-html-semantics/`
-* `03-css-design-systems/`
-* `04-javascript-deep-dive/`
-* `05-astro-essentials/`
-* `06-frameworks-integrations/`
-* `07-performance-accessibility/`
-* `08-real-world-patterns/`
-* `09-deployment-guide/`
+- `01-introduction/`
+- `02-html-semantics/`
+- `03-css-design-systems/`
+- `04-javascript-deep-dive/`
+- `05-astro-essentials/`
+- `06-frameworks-integrations/`
+- `07-performance-accessibility/`
+- `08-real-world-patterns/`
+- `09-deployment-guide/`
 
 Each chapter includes:
 
-* ✅ Concepts explained clearly
-* ✅ Real-world code examples
-* ✅ Code playgrounds
-* ✅ SEO, perf, and accessibility tips
+- ✅ Concepts explained clearly
+- ✅ Real-world code examples
+- ✅ Code playgrounds
+- ✅ SEO, perf, and accessibility tips
 
 ---
 
@@ -87,9 +92,9 @@ Each chapter includes:
 
 The handbook is **extremely configurable**. You can modify:
 
-* Layouts and styles via Tailwind
-* docs via markdown or `.mdx`
-* Navigation via `docs.config.ts`
+- Layouts and styles via Tailwind
+- docs via markdown or `.mdx`
+- Navigation via `docs.config.ts`
 
 Want dark mode, custom themes, or syntax highlighting? It’s already baked in.
 
@@ -109,13 +114,13 @@ We’d love your help making this the best frontend resource out there.
 
 ## 🙏 Acknowledgments
 
-* Built with ❤️ using [Astro](https://astro.build  )
-* Styled with [Tailwind CSS](https://tailwindcss.com  )
-* Hosted with [Vercel](https://vercel.com  )
-* Powered by the frontend community 🙏
+- Built with ❤️ using [Astro](https://astro.build)
+- Styled with [Tailwind CSS](https://tailwindcss.com)
+- Hosted with [Vercel](https://vercel.com)
+- Powered by the frontend community 🙏
 
 ---
 
 ## 📘 License
 
-MIT License © [Your Name](https://github.com/yourusername  )
+MIT License © [Your Name](https://github.com/alireza-akbarzadeh)
