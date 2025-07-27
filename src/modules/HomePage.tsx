@@ -1,12 +1,12 @@
-import { Button } from '../components/ui/button';
+import { Button } from "../components/ui/button";
 import {
   Card,
-  Carddocs,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
+} from "../components/ui/card";
+import { Badge } from "../components/ui/badge";
 import {
   ArrowRight,
   Code2,
@@ -18,7 +18,7 @@ import {
   Star,
   Play,
   CheckCircle,
-} from 'lucide-react';
+} from "lucide-react";
 
 export default function LandingPage() {
   return (
@@ -33,8 +33,8 @@ export default function LandingPage() {
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
               Build the
               <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
-                {' '}
-                Future{' '}
+                {" "}
+                Future{" "}
               </span>
               of Web
             </h1>
@@ -92,12 +92,12 @@ export default function LandingPage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
             {[
-              { name: 'React', color: 'from-blue-400 to-blue-600' },
-              { name: 'TypeScript', color: 'from-blue-500 to-blue-700' },
-              { name: 'Next.js', color: 'from-gray-700 to-gray-900' },
-              { name: 'Tailwind', color: 'from-teal-400 to-teal-600' },
-              { name: 'Astro', color: 'from-orange-400 to-orange-600' },
-              { name: 'Vite', color: 'from-purple-400 to-purple-600' },
+              { name: "React", color: "from-blue-400 to-blue-600" },
+              { name: "TypeScript", color: "from-blue-500 to-blue-700" },
+              { name: "Next.js", color: "from-gray-700 to-gray-900" },
+              { name: "Tailwind", color: "from-teal-400 to-teal-600" },
+              { name: "Astro", color: "from-orange-400 to-orange-600" },
+              { name: "Vite", color: "from-purple-400 to-purple-600" },
             ].map((tech, index) => (
               <div key={index} className="group cursor-pointer">
                 <div
@@ -130,45 +130,45 @@ export default function LandingPage() {
             {[
               {
                 icon: <Code2 className="w-8 h-8" />,
-                title: 'Interactive Code Editor',
+                title: "Interactive Code Editor",
                 description:
-                  'Write, test, and deploy code directly in your browser with our advanced IDE',
-                gradient: 'from-purple-500 to-purple-700',
+                  "Write, test, and deploy code directly in your browser with our advanced IDE",
+                gradient: "from-purple-500 to-purple-700",
               },
               {
                 icon: <Zap className="w-8 h-8" />,
-                title: 'Real-time Feedback',
+                title: "Real-time Feedback",
                 description:
-                  'Get instant feedback on your code with AI-powered suggestions and corrections',
-                gradient: 'from-yellow-500 to-orange-500',
+                  "Get instant feedback on your code with AI-powered suggestions and corrections",
+                gradient: "from-yellow-500 to-orange-500",
               },
               {
                 icon: <Palette className="w-8 h-8" />,
-                title: 'Design Systems',
+                title: "Design Systems",
                 description:
-                  'Learn to build scalable design systems and component libraries',
-                gradient: 'from-pink-500 to-rose-500',
+                  "Learn to build scalable design systems and component libraries",
+                gradient: "from-pink-500 to-rose-500",
               },
               {
                 icon: <Smartphone className="w-8 h-8" />,
-                title: 'Responsive Design',
+                title: "Responsive Design",
                 description:
-                  'Master mobile-first development and progressive web app techniques',
-                gradient: 'from-green-500 to-emerald-500',
+                  "Master mobile-first development and progressive web app techniques",
+                gradient: "from-green-500 to-emerald-500",
               },
               {
                 icon: <Users className="w-8 h-8" />,
-                title: 'Community Driven',
+                title: "Community Driven",
                 description:
-                  'Join a vibrant community of developers sharing knowledge and projects',
-                gradient: 'from-blue-500 to-cyan-500',
+                  "Join a vibrant community of developers sharing knowledge and projects",
+                gradient: "from-blue-500 to-cyan-500",
               },
               {
                 icon: <Trophy className="w-8 h-8" />,
-                title: 'Industry Certification',
+                title: "Industry Certification",
                 description:
-                  'Earn recognized certificates that boost your career prospects',
-                gradient: 'from-indigo-500 to-purple-500',
+                  "Earn recognized certificates that boost your career prospects",
+                gradient: "from-indigo-500 to-purple-500",
               },
             ].map((feature, index) => (
               <Card
@@ -185,11 +185,11 @@ export default function LandingPage() {
                     {feature.title}
                   </CardTitle>
                 </CardHeader>
-                <Carddocs>
+                <CardContent>
                   <CardDescription className="text-gray-400 text-base leading-relaxed">
                     {feature.description}
                   </CardDescription>
-                </Carddocs>
+                </CardContent>
               </Card>
             ))}
           </div>
@@ -213,31 +213,31 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                title: 'React Mastery',
+                title: "React Mastery",
                 description:
-                  'From basics to advanced patterns, hooks, and state management',
+                  "From basics to advanced patterns, hooks, and state management",
                 lessons: 45,
-                duration: '12 weeks',
-                level: 'Beginner to Advanced',
-                image: '/placeholder.svg?height=200&width=300',
+                duration: "12 weeks",
+                level: "Beginner to Advanced",
+                image: "/placeholder.svg?height=200&width=300",
               },
               {
-                title: 'TypeScript Pro',
+                title: "TypeScript Pro",
                 description:
-                  'Type-safe development with advanced TypeScript techniques',
+                  "Type-safe development with advanced TypeScript techniques",
                 lessons: 32,
-                duration: '8 weeks',
-                level: 'Intermediate',
-                image: '/placeholder.svg?height=200&width=300',
+                duration: "8 weeks",
+                level: "Intermediate",
+                image: "/placeholder.svg?height=200&width=300",
               },
               {
-                title: 'Modern CSS & Design',
+                title: "Modern CSS & Design",
                 description:
-                  'CSS Grid, Flexbox, animations, and design systems',
+                  "CSS Grid, Flexbox, animations, and design systems",
                 lessons: 38,
-                duration: '10 weeks',
-                level: 'All Levels',
-                image: '/placeholder.svg?height=200&width=300',
+                duration: "10 weeks",
+                level: "All Levels",
+                image: "/placeholder.svg?height=200&width=300",
               },
             ].map((course, index) => (
               <Card
@@ -246,7 +246,7 @@ export default function LandingPage() {
               >
                 <div className="relative">
                   <img
-                    src={course.image || '/placeholder.svg'}
+                    src={course.image || "/placeholder.svg"}
                     alt={course.title}
                     width={300}
                     height={200}
@@ -266,7 +266,7 @@ export default function LandingPage() {
                     {course.description}
                   </CardDescription>
                 </CardHeader>
-                <Carddocs>
+                <CardContent>
                   <div className="flex justify-between text-sm text-gray-400 mb-4">
                     <span>{course.lessons} lessons</span>
                     <span>{course.duration}</span>
@@ -274,7 +274,7 @@ export default function LandingPage() {
                   <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
                     Start Learning
                   </Button>
-                </Carddocs>
+                </CardContent>
               </Card>
             ))}
           </div>
@@ -286,10 +286,10 @@ export default function LandingPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { number: '50K+', label: 'Active Students' },
-              { number: '200+', label: 'Expert Instructors' },
-              { number: '95%', label: 'Job Placement Rate' },
-              { number: '4.9/5', label: 'Student Rating' },
+              { number: "50K+", label: "Active Students" },
+              { number: "200+", label: "Expert Instructors" },
+              { number: "95%", label: "Job Placement Rate" },
+              { number: "4.9/5", label: "Student Rating" },
             ].map((stat, index) => (
               <div key={index}>
                 <div className="text-4xl font-bold text-white mb-2">
