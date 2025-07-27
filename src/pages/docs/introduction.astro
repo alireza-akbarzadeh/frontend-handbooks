@@ -1,11 +1,14 @@
 ---
+// src/pages/docs/introduction.astro
 import DocLayout from '../../layouts/DocLayout.astro';
+import AdvancedInstruction from '../../components/common/advanced-instruction';
+import { BookOpen, Code, Layers, Zap } from 'lucide-react';
 ---
 
 <DocLayout
-  title="Introduction to Web Development"
-  description="Start your web development journey with this comprehensive introduction"
-  currentPath="/docs/introduction"
+    title="Introduction to Web Development"
+    description="Start your web development journey with this comprehensive introduction"
+    currentPath="/docs/introduction"
 >
   <div class="mb-8">
     <h1 class="text-4xl font-bold mb-4">Introduction to Web Development</h1>
@@ -14,80 +17,106 @@ import DocLayout from '../../layouts/DocLayout.astro';
     </p>
   </div>
 
-  <article
-    class="prose prose-slate max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-img:rounded-lg"
-  >
+  <article class="prose prose-slate max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-img:rounded-lg mb-8">
     <p>
       Welcome to the Frontend Handbook! This guide will take you through
       everything you need to know about modern web development, from the basics
       to advanced concepts.
     </p>
+    <!-- The AdvancedInstruction component will go here -->
+  </article>
 
-    <h2>What You'll Learn</h2>
+  <AdvancedInstruction
+      title="Your Learning Journey Starts Here"
+      description="This guide provides a structured approach to mastering frontend development."
+      learningObjectives={[
+        "Understand the fundamental structure of web pages using HTML.",
+        "Style and layout pages effectively with modern CSS techniques.",
+        "Add interactivity and dynamic behavior using JavaScript.",
+        "Utilize version control systems like Git for collaboration.",
+        "Explore popular frontend frameworks and build tools."
+      ]}
+      steps={[
+        {
+          id: "step1",
+          title: "Master HTML Semantics",
+          description: "Learn how to structure documents with the correct HTML elements for accessibility and SEO.",
+          badge: "core",
+          icon: BookOpen  // Pass component, NOT JSX
+      },
+        {
+          id: "step2",
+          title: "Dive into CSS Layout",
+          description: "Master Flexbox and Grid to create responsive and modern layouts.",
+          badge: "updated",
+          icon: Layers
+        },
+        {
+          id: "step3",
+          title: "Learn JavaScript Fundamentals",
+          description: "Grasp core programming concepts like variables, functions, and DOM manipulation.",
+          badge: "core",
+          icon: Code
+        },
+        {
+          id: "step4",
+          title: "Explore Modern Frameworks",
+          description: "Get hands-on experience with React, Vue, or Svelte to build complex applications.",
+          badge: "new",
+          icon: Zap
+        }
+      ]}
+      learningPath={[
+        {
+          id: "path1",
+          title: "HTML Semantics",
+          description: "Learn how to structure documents with the right HTML elements.",
+          path: "/docs/html/semantics",
+          badge: "core"
+        },
+        {
+          id: "path2",
+          title: "CSS Flexbox",
+          description: "Master the basics of flexible box layout.",
+          path: "/docs/css/flexbox",
+          badge: "updated"
+        },
+        {
+          id: "path3",
+          title: "JavaScript ES6 Features",
+          description: "Explore modern JavaScript syntax and features.",
+          path: "/docs/javascript/es6",
+          badge: "new"
+        },
+        {
+          id: "path4",
+          title: "Git Workflows",
+          description: "Understand version control basics and common workflows.",
+          path: "/docs/tooling/git",
+          badge: "new"
+        }
+      ]}
+      callToAction={{
+        title: "Start Exploring",
+        description: "Dive deeper into specific topics or follow the recommended learning path.",
+        links: [
+          { label: "HTML Semantics", href: "/docs/html/semantics", variant: "outline" },
+          { label: "CSS Flexbox", href: "/docs/css/flexbox", variant: "outline" },
+          { label: "JS ES6", href: "/docs/javascript/es6", variant: "outline" },
+          { label: "Git Basics", href: "/docs/tooling/git", variant: "outline" },
+          { label: "All Docs", href: "/docs" }
+        ]
+      }}
+  />
 
-    <p>This handbook covers the three core technologies of the web:</p>
-
-    <ul>
-      <li><strong>HTML</strong> - The structure and semantics of web pages</li>
-      <li><strong>CSS</strong> - The styling and layout of web pages</li>
-      <li>
-        <strong>JavaScript</strong> - The interactivity and dynamic behavior of web
-        pages
-      </li>
-    </ul>
-
-    <p>
-      Additionally, we cover modern tools, frameworks, and workflows that
-      professional developers use, including:
-    </p>
-
-    <ul>
-      <li>Version control with Git and GitHub</li>
-      <li>Modern JavaScript frameworks like React, Vue, and Angular</li>
-      <li>Build tools and development workflows</li>
-      <li>Performance optimization and accessibility</li>
-    </ul>
-
-    <h2>Learning Path</h2>
-
-    <p>
-      If you're new to web development, we recommend following this learning
-      path:
-    </p>
-
-    <ol>
-      <li>
-        <a href="/docs/html/semantics">Start with HTML semantics</a> - Learn how
-        to structure docs with the right HTML elements
-      </li>
-      <li>
-        <a href="/docs/css/basics">Learn CSS fundamentals</a> - Master the basics
-        of styling and layout
-      </li>
-      <li>
-        <a href="/docs/javascript/basics">JavaScript foundations</a> - Understand
-        the core concepts of programming with JavaScript
-      </li>
-      <li>
-        <a href="/docs/javascript/es6">Modern JavaScript features</a> - Explore ES6+
-        features that make coding more efficient
-      </li>
-      <li>
-        <a href="/docs/frameworks/overview">Frameworks overview</a> - Get an introduction
-        to modern frameworks
-      </li>
-    </ol>
-
+  <article class="prose prose-slate max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-img:rounded-lg mt-8">
     <h2>How to Use This Handbook</h2>
-
     <p>
       This handbook is designed to be both a tutorial and a reference. You can
       read it from start to finish as a course, or use it to look up specific
       topics when you need them.
     </p>
-
     <p>Each article includes:</p>
-
     <ul>
       <li>Clear explanations of concepts</li>
       <li>Practical code examples</li>
@@ -95,35 +124,5 @@ import DocLayout from '../../layouts/DocLayout.astro';
       <li>Common pitfalls to avoid</li>
       <li>Links to related topics for deeper exploration</li>
     </ul>
-
-    <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg my-8">
-      <h3 class="text-blue-700 dark:text-blue-400 mb-2">Start Exploring</h3>
-      <p class="text-slate-700 dark:text-slate-300">
-        Ready to start learning? Choose a category from the sidebar or check out
-        our most popular topics:
-      </p>
-      <div class="mt-4 flex flex-wrap gap-3">
-        <a
-          href="/docs/html/semantics"
-          class="px-3 py-1.5 bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 rounded-md hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors"
-          >HTML Semantics</a
-        >
-        <a
-          href="/docs/css/flexbox"
-          class="px-3 py-1.5 bg-white dark:bg-slate-800 text-purple-600 dark:text-purple-400 rounded-md hover:bg-purple-50 dark:hover:bg-purple-900/30 transition-colors"
-          >CSS Flexbox</a
-        >
-        <a
-          href="/docs/javascript/es6"
-          class="px-3 py-1.5 bg-white dark:bg-slate-800 text-amber-600 dark:text-amber-400 rounded-md hover:bg-amber-50 dark:hover:bg-amber-900/30 transition-colors"
-          >ES6 Features</a
-        >
-        <a
-          href="/docs/git/workflows"
-          class="px-3 py-1.5 bg-white dark:bg-slate-800 text-orange-600 dark:text-orange-400 rounded-md hover:bg-orange-50 dark:hover:bg-orange-900/30 transition-colors"
-          >Git Workflows</a
-        >
-      </div>
-    </div>
   </article>
 </DocLayout>

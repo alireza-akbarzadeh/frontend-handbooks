@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:docs';
-import type { Doc } from '@/types/docs';
+import { getCollection } from 'astro:content';
+import type { Doc } from '../../types/docs';
 
 export const GET: APIRoute = async ({ request }) => {
     try {

@@ -136,18 +136,17 @@ export function Sidebar({ currentPath }: SidebarProps) {
                     Documentation
                 </h3>
 
-                {/* Use shadcn/ui Accordion */}
                 <Accordion
-                    type="single" // Allow multiple items open
+                    type="single"
                     className="space-y-1"
-                    defaultValue={defaultOpenItems} // Set default open items based on current path
+                    defaultValue={defaultOpenItems}
                 >
                     {navItems.map((item) => {
                         const isActive = isItemActive(item.path, currentPath);
                         const hasChildren = item.items && item.items.length > 0;
 
                         if (hasChildren) {
-                            // Render Accordion Item for items with children
+
                             return (
                                 <AccordionItem key={item.path} value={item.path} className="border-b-0">
                                     <AccordionTrigger
