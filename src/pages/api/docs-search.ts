@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
+import { getCollection } from 'astro:docs';
 import type { Doc } from '@/types/docs';
 
 export const GET: APIRoute = async ({ request }) => {
@@ -13,7 +13,7 @@ export const GET: APIRoute = async ({ request }) => {
                 {
                     status: 200,
                     headers: {
-                        'Content-Type': 'application/json'
+                        'docs-Type': 'application/json'
                     }
                 }
             );
@@ -46,7 +46,7 @@ export const GET: APIRoute = async ({ request }) => {
             {
                 status: 200,
                 headers: {
-                    'Content-Type': 'application/json',
+                    'docs-Type': 'application/json',
                     // Don't cache search results for too long
                     'Cache-Control': 'public, max-age=300'
                 }
@@ -62,7 +62,7 @@ export const GET: APIRoute = async ({ request }) => {
             {
                 status: 500,
                 headers: {
-                    'Content-Type': 'application/json'
+                    'docs-Type': 'application/json'
                 }
             }
         );

@@ -1,12 +1,12 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '../components/ui/button';
 import {
   Card,
-  CardContent,
+  Carddocs,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+} from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
 import {
   ArrowRight,
   Code2,
@@ -185,11 +185,11 @@ export default function LandingPage() {
                     {feature.title}
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <Carddocs>
                   <CardDescription className="text-gray-400 text-base leading-relaxed">
                     {feature.description}
                   </CardDescription>
-                </CardContent>
+                </Carddocs>
               </Card>
             ))}
           </div>
@@ -266,7 +266,7 @@ export default function LandingPage() {
                     {course.description}
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <Carddocs>
                   <div className="flex justify-between text-sm text-gray-400 mb-4">
                     <span>{course.lessons} lessons</span>
                     <span>{course.duration}</span>
@@ -274,7 +274,7 @@ export default function LandingPage() {
                   <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
                     Start Learning
                   </Button>
-                </CardContent>
+                </Carddocs>
               </Card>
             ))}
           </div>

@@ -1,167 +1,214 @@
-import React from 'react';
-import { cva } from 'class-variance-authority';
-import { cn } from '../../lib/utils';
 
-interface SidebarProps {
-    currentPath: string;
-}
+import * as React from "react";
 
+import { cn } from "../../lib/utils";
+
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "../ui/accordion.tsx";
+
+// Define TypeScript interfaces
 interface NavItem {
     title: string;
     path: string;
-    items?: NavItem[];
-    badge?: 'new' | 'updated' | 'experimental';
+    items?: NavItem[]; // Recursive type for nested items
+    badge?: "new" | "updated" | "experimental";
 }
 
+interface SidebarProps {
+    currentPath: string;
+    // Optional: Allow passing navItems as prop for flexibility
+    // navItems?: NavItem[];
+}
+
+// Define navigation data (consider moving this to a separate file like lib/nav-data.ts)
 const navItems: NavItem[] = [
     {
         title: "Introduction",
-        path: "/content/introduction",
+        path: "/docs/introduction",
     },
     {
         title: "HTML",
-        path: "/content/html",
+        path: "/docs/html",
         items: [
-            { title: "Semantic HTML", path: "/content/html/semantics" },
-            { title: "Accessibility", path: "/content/html/accessibility" },
-            { title: "Forms", path: "/content/html/forms" },
-            { title: "SEO Fundamentals", path: "/content/html/seo", badge: "new" },
-        ]
+            { title: "Semantic HTML", path: "/docs/html/semantics" },
+            { title: "Accessibility", path: "/docs/html/accessibility" },
+            { title: "Forms", path: "/docs/html/forms" },
+            { title: "SEO Fundamentals", path: "/docs/html/seo", badge: "new" },
+        ],
     },
     {
         title: "CSS",
-        path: "/content/css",
+        path: "/docs/css",
         items: [
-            { title: "Flexbox", path: "/content/css/flexbox" },
-            { title: "Grid", path: "/content/css/grid" },
-            { title: "Responsive Design", path: "/content/css/responsive" },
-            { title: "Tailwind CSS", path: "/content/css/tailwind" },
-            { title: "Animations", path: "/content/css/animations", badge: "updated" },
-        ]
+            { title: "Flexbox", path: "/docs/css/flexbox" },
+            { title: "Grid", path: "/docs/css/grid" },
+            { title: "Responsive Design", path: "/docs/css/responsive" },
+            { title: "Tailwind CSS", path: "/docs/css/tailwind" },
+            { title: "Animations", path: "/docs/css/animations", badge: "updated" },
+        ],
     },
     {
         title: "JavaScript",
-        path: "/content/javascript",
+        path: "/docs/javascript",
         items: [
-            { title: "ES6+ Features", path: "/content/javascript/es6" },
-            { title: "Promises & Async/Await", path: "/content/javascript/async" },
-            { title: "DOM Manipulation", path: "/content/javascript/dom" },
-            { title: "Web APIs", path: "/content/javascript/web-apis" },
-            { title: "Performance", path: "/content/javascript/performance" },
-        ]
+            { title: "ES6+ Features", path: "/docs/javascript/es6" },
+            { title: "Promises & Async/Await", path: "/docs/javascript/async" },
+            { title: "DOM Manipulation", path: "/docs/javascript/dom" },
+            { title: "Web APIs", path: "/docs/javascript/web-apis" },
+            { title: "Performance", path: "/docs/javascript/performance" },
+        ],
     },
     {
         title: "Frameworks",
-        path: "/content/frameworks",
+        path: "/docs/frameworks",
         items: [
-            { title: "Astro", path: "/content/frameworks/astro", badge: "new" },
-            { title: "React", path: "/content/frameworks/react" },
-            { title: "Vue", path: "/content/frameworks/vue" },
-            { title: "Svelte", path: "/content/frameworks/svelte" },
-        ]
+            { title: "Astro", path: "/docs/frameworks/astro", badge: "new" },
+            { title: "React", path: "/docs/frameworks/react" },
+            { title: "Vue", path: "/docs/frameworks/vue" },
+            { title: "Svelte", path: "/docs/frameworks/svelte" },
+        ],
     },
     {
         title: "Tooling",
-        path: "/content/tooling",
+        path: "/docs/tooling",
         items: [
-            { title: "Git & GitHub", path: "/content/tooling/git" },
-            { title: "Vite", path: "/content/tooling/vite" },
-            { title: "Package Managers", path: "/content/tooling/package-managers" },
-            { title: "Testing", path: "/content/tooling/testing" },
-        ]
+            { title: "Git & GitHub", path: "/docs/tooling/git" },
+            { title: "Vite", path: "/docs/tooling/vite" },
+            { title: "Package Managers", path: "/docs/tooling/package-managers" },
+            { title: "Testing", path: "/docs/tooling/testing" },
+        ],
     },
     {
         title: "Best Practices",
-        path: "/content/best-practices",
+        path: "/docs/best-practices",
         items: [
-            { title: "Performance", path: "/content/best-practices/performance" },
-            { title: "Security", path: "/content/best-practices/security" },
-            { title: "Deployment", path: "/content/best-practices/deployment" },
-        ]
+            { title: "Performance", path: "/docs/best-practices/performance" },
+            { title: "Security", path: "/docs/best-practices/security" },
+            { title: "Deployment", path: "/docs/best-practices/deployment" },
+        ],
     },
 ];
 
-const navLinkStyles = cva(
-    "block rounded-md px-3 py-2 text-sm font-medium transition-colors",
-    {
-        variants: {
-            isActive: {
-                true: "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white",
-                false: "text-slate-700 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white"
-            }
-        },
-        defaultVariants: {
-            isActive: false
-        }
-    }
-);
+// Helper function to determine if a path is active
+const isItemActive = (itemPath: string, currentPath: string): boolean => {
+    return currentPath === itemPath || currentPath.startsWith(itemPath + "/");
+};
 
-const NavLink = ({ item, currentPath, depth = 0 }: { item: NavItem; currentPath: string; depth?: number }) => {
-    const isActive = currentPath === item.path;
-    const hasChildren = item.items && item.items.length > 0;
-    const [isOpen, setIsOpen] = React.useState(isActive || currentPath.startsWith(item.path + "/"));
+// Helper function to get default open accordion values
+const getDefaultOpenItems = (items: NavItem[], currentPath: string): string[] => {
+    return items
+        .filter((item) => isItemActive(item.path, currentPath))
+        .map((item) => item.path);
+};
+
+// Badge Component (Optional: Extract for reusability)
+const Badge: React.FC<{ type: "new" | "updated" | "experimental" }> = ({ type }) => {
+    const baseClasses = "ml-2 inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium";
+    const typeClasses = {
+        new: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100",
+        updated: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100",
+        experimental: "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-100", // Fallback for experimental
+    };
 
     return (
-        <li className="space-y-1">
-            <div className="flex items-center justify-between">
-                <a
-                    href={item.path}
-                    className={cn(
-                        navLinkStyles({ isActive }),
-                        depth > 0 ? "ml-4" : ""
-                    )}
-                >
-                    {item.title}
-                    {item.badge && (
-                        <span className={cn(
-                            "ml-2 inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium",
-                            item.badge === "new" ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100" :
-                                item.badge === "updated" ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100" :
-                                    "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-100"
-                        )}>
-              {item.badge}
-            </span>
-                    )}
-                </a>
-                {hasChildren && (
-                    <button
-                        onClick={() => setIsOpen(!isOpen)}
-                        aria-expanded={isOpen}
-                        className="p-1 rounded-md text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-90' : ''}`}
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                        >
-                            <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                        </svg>
-                    </button>
-                )}
-            </div>
-
-            {hasChildren && isOpen && (
-                <ul className="mt-1 space-y-1">
-                    {item.items!.map((child) => (
-                        <NavLink key={child.path} item={child} currentPath={currentPath} depth={depth + 1} />
-                    ))}
-                </ul>
-            )}
-        </li>
+        <span className={cn(baseClasses, typeClasses[type] || typeClasses.experimental)}>
+      {type}
+    </span>
     );
 };
 
+// Main Sidebar Component
 export function Sidebar({ currentPath }: SidebarProps) {
+    // Determine which top-level accordion items should be open by default
+    const defaultOpenItems = React.useMemo(
+        () => getDefaultOpenItems(navItems, currentPath),
+        [currentPath]
+    );
+
     return (
         <nav className="space-y-6">
             <div className="space-y-3">
-                <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400">Documentation</h3>
-                <ul className="space-y-1">
-                    {navItems.map((item) => (
-                        <NavLink key={item.path} item={item} currentPath={currentPath} />
-                    ))}
-                </ul>
+                <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400">
+                    Documentation
+                </h3>
+
+                {/* Use shadcn/ui Accordion */}
+                <Accordion
+                    type="single" // Allow multiple items open
+                    className="space-y-1"
+                    defaultValue={defaultOpenItems} // Set default open items based on current path
+                >
+                    {navItems.map((item) => {
+                        const isActive = isItemActive(item.path, currentPath);
+                        const hasChildren = item.items && item.items.length > 0;
+
+                        if (hasChildren) {
+                            // Render Accordion Item for items with children
+                            return (
+                                <AccordionItem key={item.path} value={item.path} className="border-b-0">
+                                    <AccordionTrigger
+                                        className={cn(
+                                            "w-full flex justify-between items-center px-3 py-2 text-sm font-medium rounded-md transition-colors hover:no-underline",
+                                            isActive
+                                                ? "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white"
+                                                : "text-slate-700 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white"
+                                        )}
+                                    >
+                    <span className="flex items-center">
+                      {item.title}
+                        {item.badge && <Badge type={item.badge} />}
+                    </span>
+                                        {/* ChevronRight icon from lucide-react, rotated by shadcn/ui */}
+                                    </AccordionTrigger>
+                                    <AccordionContent className="pb-0 pl-4 mt-1 space-y-1">
+                                        {item.items!.map((child) => {
+                                            const childActive = isItemActive(child.path, currentPath); // Use helper here too
+                                            return (
+                                                <a
+                                                    key={child.path}
+                                                    href={child.path}
+                                                    className={cn(
+                                                        "block rounded-md px-3 py-2 text-sm transition-colors",
+                                                        childActive
+                                                            ? "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white"
+                                                            : "text-slate-700 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white"
+                                                    )}
+                                                >
+                          <span className="flex items-center">
+                            {child.title}
+                              {child.badge && <Badge type={child.badge} />}
+                          </span>
+                                                </a>
+                                            );
+                                        })}
+                                    </AccordionContent>
+                                </AccordionItem>
+                            );
+                        }
+
+                        return (
+                            <a
+                                key={item.path}
+                                href={item.path}
+                                className={cn(
+                                    "block rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                                    isActive
+                                        ? "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white"
+                                        : "text-slate-700 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white"
+                                )}
+                            >
+                <span className="flex items-center">
+                  {item.title}
+                    {item.badge && <Badge type={item.badge} />}
+                </span>
+                            </a>
+                        );
+                    })}
+                </Accordion>
             </div>
         </nav>
     );

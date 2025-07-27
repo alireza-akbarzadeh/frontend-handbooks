@@ -61,10 +61,10 @@ function CardAction({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function CardContent({ className, ...props }: React.ComponentProps<"div">) {
+function Carddocs({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
-      data-slot="card-content"
+      data-slot="card-docs"
       className={cn("px-6", className)}
       {...props}
     />
@@ -88,5 +88,5 @@ export {
   CardTitle,
   CardAction,
   CardDescription,
-  CardContent,
+  Carddocs,
 }

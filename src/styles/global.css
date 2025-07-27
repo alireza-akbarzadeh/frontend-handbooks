@@ -146,30 +146,30 @@ code .attr-value { @apply text-amber-600; }
 .dark code .attr-value { @apply text-amber-400; }
 
 /* Documentation specific styles */
-.docs-content h2 {
+.docs-docs h2 {
   @apply mt-10 scroll-m-20 border-b border-b-slate-200 pb-2 text-2xl font-semibold tracking-tight first:mt-0 dark:border-b-slate-700;
 }
 
-.docs-content h3 {
+.docs-docs h3 {
   @apply mt-8 scroll-m-20 text-xl font-semibold tracking-tight;
 }
 
-.docs-content h4 {
+.docs-docs h4 {
   @apply mt-6 scroll-m-20 text-lg font-semibold tracking-tight;
 }
 
-.docs-content p {
+.docs-docs p {
   @apply leading-7 [&:not(:first-child)]:mt-5;
 }
 
-.docs-content blockquote {
+.docs-docs blockquote {
   @apply mt-6 border-l-2 border-slate-300 pl-6 italic text-slate-800 dark:border-slate-600 dark:text-slate-200;
 }
 
-.docs-content ul {
+.docs-docs ul {
   @apply my-6 ml-6 list-disc [&>li]:mt-2;
 }
 
-.docs-content ol {
+.docs-docs ol {
   @apply my-6 ml-6 list-decimal [&>li]:mt-2;
 }

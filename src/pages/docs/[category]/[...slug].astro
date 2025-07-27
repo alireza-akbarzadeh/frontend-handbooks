@@ -1,5 +1,5 @@
 ---
-import DocLayout from '../../layouts/DocLayout.astro';
+import DocLayout from '../../../layouts/DocLayout.astro';
 import { getCollection } from 'astro:content';
 import type { Doc } from '../../types/docs';
 
@@ -17,7 +17,7 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content, headings } = await entry.render();
+const { docs, headings } = await entry.render();
 const { category, slug } = Astro.params;
 
 // Find related docs
@@ -89,7 +89,7 @@ const currentCategoryMeta = categoryMetadata[category] || {
         title={entry.data.title}
         description={entry.data.description}
         currentPath={`/docs/${entry.slug}`}
-        tableOfContents={headings}
+        tableOfdocss={headings}
 >
     <div class="mb-8">
         <div class="flex items-center gap-2 mb-2 text-sm text-slate-500 dark:text-slate-400">
@@ -147,9 +147,9 @@ const currentCategoryMeta = categoryMetadata[category] || {
         </div>
     </div>
 
-    <!-- Content -->
+    <!-- docs -->
     <article class="prose prose-slate max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-img:rounded-lg">
-        <Content />
+        <docs />
     </article>
 
     <!-- Related Docs -->
@@ -190,7 +190,7 @@ const currentCategoryMeta = categoryMetadata[category] || {
     <!-- Edit Page Link -->
     <div class="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800 text-center">
         <a
-                href={`https://github.com/yourusername/frontend-handbook/edit/main/src/content/docs/${entry.slug}.md`}
+                href={`https://github.com/yourusername/frontend-handbook/edit/main/src/docs/docs/${entry.slug}.md`}
                 class="inline-flex items-center text-sm text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
         >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor">

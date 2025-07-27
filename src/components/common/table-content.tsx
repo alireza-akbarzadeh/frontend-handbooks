@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { cn } from '../../lib/utils';
 
-interface TableOfContentsProps {
+interface TableOfdocssProps {
   headings: {
     id: string;
     text: string;
@@ -10,7 +10,7 @@ interface TableOfContentsProps {
   }[];
 }
 
-export function TableOfContents({ headings }: TableOfContentsProps) {
+export function TableOfdocss({ headings }: TableOfdocssProps) {
   const [activeId, setActiveId] = useState<string>("");
 
   useEffect(() => {

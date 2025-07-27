@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface RelatedContentProps {
+interface RelateddocsProps {
     topics: {
         html?: string[];
         css?: string[];
@@ -18,7 +18,7 @@ const topicLabels = {
     tools: "Tools & Workflow"
 };
 
-export function RelatedContent({ topics }: RelatedContentProps) {
+export function Relateddocs({ topics }: RelateddocsProps) {
     // Filter out empty topic categories
     const topicEntries = Object.entries(topics).filter(
         ([_, links]) => links && links.length > 0
@@ -28,7 +28,7 @@ export function RelatedContent({ topics }: RelatedContentProps) {
 
     return (
         <div className="space-y-3">
-            <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400">Related Content</h3>
+            <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400">Related docs</h3>
             <div className="space-y-4">
                 {topicEntries.map(([category, links]) => (
                     <div key={category} className="space-y-2">

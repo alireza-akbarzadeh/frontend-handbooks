@@ -1,7 +1,7 @@
 ---
 import { Sidebar } from '../components/common/sidebar';
-import { TableOfContents } from '../components/common/table-content';
-import { RelatedContent } from '../components/common/related-content';
+import { TableOfdocss } from '../components/common/table-content';
+import { Relateddocs } from '../components/common/related-content';
 import Header from "../components/common/header.astro"
 import Footer from "../components/common/footer.astro"
 import Root from "../layouts/Root.astro"
@@ -10,7 +10,7 @@ interface Props {
   title: string;
   description?: string;
   currentPath?: string;
-  tableOfContents?: any[];
+  tableOfdocss?: any[];
   relatedTopics?: {
     html?: string[];
     css?: string[];
@@ -24,7 +24,7 @@ const {
   title,
   description = 'Frontend Handbook - Your guide to modern web development',
   currentPath = '',
-  tableOfContents = [],
+  tableOfdocss = [],
   relatedTopics = {},
 } = Astro.props;
 ---
@@ -36,10 +36,10 @@ const {
     >
       <!-- Left Sidebar - Navigation -->
       <aside class="w-full md:w-64 shrink-0 md:sticky md:top-20 h-fit">
-        <Sidebar currentPath={currentPath} />
+        <Sidebar client:load currentPath={currentPath} />
       </aside>
 
-      <!-- Main Content -->
+      <!-- Main docs -->
       <main
         class="flex-1 min-w-0 prose dark:prose-invert prose-slate max-w-none"
       >
@@ -47,19 +47,19 @@ const {
         <slot />
       </main>
 
-      <!-- Right Sidebar - Table of Contents & Related Content -->
+      <!-- Right Sidebar - Table of docss & Related docs -->
       <aside
         class="w-full md:w-72 shrink-0 md:sticky md:top-20 h-fit space-y-8"
       >
         {
-          tableOfContents.length > 0 && (
-            <TableOfContents headings={tableOfContents} />
+          tableOfdocss.length > 0 && (
+            <TableOfdocss headings={tableOfdocss} />
           )
         }
 
         {
           Object.keys(relatedTopics).length > 0 && (
-            <RelatedContent topics={relatedTopics} />
+            <Relateddocs topics={relatedTopics} />
           )
         }
       </aside>

@@ -9,7 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /**
- * Extract headings from HTML content for table of contents
+ * Extract headings from HTML docs for table of docss
  */
 export function extractHeadings(html: string) {
   const headingRegex = /<h([2-6])\s+id="([^"]+)"[^>]*>(.*?)<\/h\1>/g;

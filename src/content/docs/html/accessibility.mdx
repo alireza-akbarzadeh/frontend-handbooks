@@ -1,6 +1,6 @@
 ---
 title: 'HTML Accessibility'
-description: 'Best practices for creating accessible HTML content for all users'
+description: 'Best practices for creating accessible HTML docs for all users'
 ---
 
 ## Introduction to Web Accessibility
@@ -11,7 +11,7 @@ Web accessibility means designing and developing websites that can be used by ev
   According to the World Health Organization, over 1 billion people (about 15%
   of the world's population) live with some form of disability. Creating
   accessible websites ensures that these users can access and interact with your
-  content.
+  docs.
 </Note>
 
 ## Why Accessibility Matters
@@ -36,20 +36,20 @@ Web accessibility means designing and developing websites that can be used by ev
   </Card>
 </CardGroup>
 
-## Web Content Accessibility Guidelines (WCAG)
+## Web docs Accessibility Guidelines (WCAG)
 
-The Web Content Accessibility Guidelines (WCAG) are the internationally recognized standards for web accessibility. WCAG is organized around four principles, often referred to as POUR:
+The Web docs Accessibility Guidelines (WCAG) are the internationally recognized standards for web accessibility. WCAG is organized around four principles, often referred to as POUR:
 
 <Steps>
   <Step title="Perceivable">
     Information and user interface components must be presentable to users in
     ways they can perceive. This means providing text alternatives for non-text
-    content and creating content that can be presented in different ways.
+    docs and creating docs that can be presented in different ways.
   </Step>
   <Step title="Operable">
     User interface components and navigation must be operable. This means making
     all functionality available from a keyboard and giving users enough time to
-    read and use content.
+    read and use docs.
   </Step>
   <Step title="Understandable">
     Information and the operation of the user interface must be understandable.
@@ -57,7 +57,7 @@ The Web Content Accessibility Guidelines (WCAG) are the internationally recogniz
     correct mistakes.
   </Step>
   <Step title="Robust">
-    Content must be robust enough to be interpreted reliably by a wide variety
+    docs must be robust enough to be interpreted reliably by a wide variety
     of user agents, including assistive technologies. This means maximizing
     compatibility with current and future tools.
   </Step>
@@ -71,33 +71,33 @@ Semantic HTML is the foundation of web accessibility. Using the right HTML eleme
 
 ### Document Structure
 
-A proper document structure helps assistive technologies navigate and understand your content:
+A proper document structure helps assistive technologies navigate and understand your docs:
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" docs="width=device-width, initial-scale=1.0" />
     <title>Accessible Webpage</title>
   </head>
   <body>
     <header>
       <h1>Website Title</h1>
       <nav>
-        <!-- Navigation content -->
+        <!-- Navigation docs -->
       </nav>
     </header>
 
     <main>
       <article>
         <h2>Article Title</h2>
-        <p>Article content...</p>
+        <p>Article docs...</p>
       </article>
 
       <aside>
         <h2>Related Information</h2>
-        <!-- Aside content -->
+        <!-- Aside docs -->
       </aside>
     </main>
 
@@ -114,17 +114,17 @@ A proper document structure helps assistive technologies navigate and understand
 
 ### Headings
 
-Headings create a hierarchical structure that helps users understand the organization of your content:
+Headings create a hierarchical structure that helps users understand the organization of your docs:
 
 ```html
 <h1>Main Page Title</h1>
 
 <section>
   <h2>Section Title</h2>
-  <p>Section content...</p>
+  <p>Section docs...</p>
 
   <h3>Subsection Title</h3>
-  <p>Subsection content...</p>
+  <p>Subsection docs...</p>
 </section>
 ```
 
@@ -132,11 +132,11 @@ Headings create a hierarchical structure that helps users understand the organiz
   Always maintain a proper heading hierarchy. Don't skip levels (like going from `<h1>` to `<h3>`), and don't use headings just for styling purposes. Screen reader users often navigate by headings, so a proper hierarchy is crucial.
 </Warning>
 
-## Text Alternatives for Non-Text Content
+## Text Alternatives for Non-Text docs
 
 ### Images
 
-All images should have appropriate alternative text that conveys the purpose or content of the image:
+All images should have appropriate alternative text that conveys the purpose or docs of the image:
 
 ```html
 <!-- Informative image -->
@@ -182,13 +182,13 @@ SVG images should also be made accessible:
     Bar chart showing sales increasing each quarter, with Q4 being the highest
     at $1.2M
   </desc>
-  <!-- SVG content -->
+  <!-- SVG docs -->
 </svg>
 ```
 
 ### Audio and Video
 
-Multimedia content needs alternatives:
+Multimedia docs needs alternatives:
 
 ```html
 <!-- Audio with transcript -->
@@ -248,14 +248,14 @@ Skip links allow keyboard users to bypass repetitive navigation:
 
 ```html
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#main-docs" class="skip-link">Skip to main docs</a>
 
   <header>
-    <!-- Header content -->
+    <!-- Header docs -->
   </header>
 
-  <main id="main-content">
-    <!-- Main content -->
+  <main id="main-docs">
+    <!-- Main docs -->
   </main>
 </body>
 ```
@@ -363,8 +363,8 @@ ARIA attributes can enhance accessibility when HTML alone isn't sufficient:
   <button role="tab" aria-selected="false" aria-controls="panel2">Tab 2</button>
 </div>
 
-<div id="panel1" role="tabpanel">Content for Tab 1</div>
-<div id="panel2" role="tabpanel" hidden>Content for Tab 2</div>
+<div id="panel1" role="tabpanel">docs for Tab 1</div>
+<div id="panel2" role="tabpanel" hidden>docs for Tab 2</div>
 ```
 
 ### ARIA States and Properties
@@ -410,7 +410,7 @@ Color should not be the only means of conveying information, and text should hav
 <label>
   Name:
   <svg aria-label="required" role="img" width="10" height="10">
-    <!-- SVG content for a star icon -->
+    <!-- SVG docs for a star icon -->
   </svg>
 </label>
 <input type="text" required aria-required="true" />
@@ -473,9 +473,9 @@ Tables should be used for tabular data only and need proper structure for access
   </Card>
 </CardGroup>
 
-## Dynamic Content and AJAX
+## Dynamic docs and AJAX
 
-When content changes dynamically, users with assistive technology need to be informed:
+When docs changes dynamically, users with assistive technology need to be informed:
 
 ```html
 <!-- Alert users of important updates -->
@@ -484,7 +484,7 @@ When content changes dynamically, users with assistive technology need to be inf
 <script>
   function showNotification(message) {
     const notification = document.getElementById('notification');
-    notification.textContent = message;
+    notification.textdocs = message;
     // The role="alert" will cause screen readers to announce this message
   }
 
@@ -497,8 +497,8 @@ When content changes dynamically, users with assistive technology need to be inf
 
 <script>
   // When results are loaded:
-  document.getElementById('status').textContent = '10 results found';
-  // Screen readers will announce this when they're not busy with other content
+  document.getElementById('status').textdocs = '10 results found';
+  // Screen readers will announce this when they're not busy with other docs
 </script>
 ```
 
@@ -603,15 +603,15 @@ Use this checklist to ensure your HTML is accessible:
     - [ ] Tables used only for tabular data - [ ] Tables have captions - [ ]
     Tables have proper headers - [ ] Complex tables have appropriate markup
   </Step>
-  <Step title="Dynamic Content">
-    - [ ] ARIA live regions for dynamic content - [ ] Status messages are
+  <Step title="Dynamic docs">
+    - [ ] ARIA live regions for dynamic docs - [ ] Status messages are
     announced to screen readers - [ ] Modal dialogs trap focus appropriately
   </Step>
 </Steps>
 
 ## Resources for Learning More
 
-- [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/standards-guidelines/wcag/)
+- [Web docs Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/standards-guidelines/wcag/)
 - [MDN Web Docs: Accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility)
 - [WebAIM](https://webaim.org/)
 - [The A11Y Project](https://www.a11yproject.com/)
@@ -620,5 +620,5 @@ Use this checklist to ensure your HTML is accessible:
 <Tip>
   Accessibility is an ongoing process, not a one-time task. Regularly test your
   websites with real users who have disabilities and with assistive technologies
-  to ensure they remain accessible as you add new features and content.
+  to ensure they remain accessible as you add new features and docs.
 </Tip>

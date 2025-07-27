@@ -55,14 +55,14 @@ Then visit [`http://localhost:4321`](http://localhost:4321)
 
 ```txt
 📁 /src
- ┣ 📁 content        → Markdown-based chapters
+ ┣ 📁 docs        → Markdown-based chapters
  ┣ 📁 components     → UI components (Astro, React)
  ┣ 📁 layouts        → Handbook layout templates
  ┣ 📁 styles         → Tailwind & custom styling
  ┗ 📄 config.ts      → Site-wide config & customization
 ```
 
-### 🧭 Table of Contents
+### 🧭 Table of docss
 
 * `01-introduction/`
 * `02-html-semantics/`
@@ -88,7 +88,7 @@ Each chapter includes:
 The handbook is **extremely configurable**. You can modify:
 
 * Layouts and styles via Tailwind
-* Content via markdown or `.mdx`
+* docs via markdown or `.mdx`
 * Navigation via `docs.config.ts`
 
 Want dark mode, custom themes, or syntax highlighting? It’s already baked in.
