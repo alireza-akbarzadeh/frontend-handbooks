@@ -1,7 +1,7 @@
 ---
-import DocLayout from '@/layouts/DocLayout.astro';
+import DocLayout from '../../layouts/DocLayout.astro';
 import { getCollection } from 'astro:content';
-import type { Doc } from '@/types/docs';
+import type { Doc } from '../../types/docs';
 
 // Generate all possible category/slug combinations
 export async function getStaticPaths() {

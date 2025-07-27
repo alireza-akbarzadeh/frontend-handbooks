@@ -1,7 +1,7 @@
 ---
-import DocLayout from '@/layouts/DocLayout.astro';
+import DocLayout from '../../layouts/DocLayout.astro';
 import { getCollection } from 'astro:content';
-import type { Doc } from '@/types/docs';
+import type { Doc } from '../../types/docs';
 
 // Get all categories and count docs in each
 const allDocs = await getCollection('docs');
