@@ -1,9 +1,11 @@
 ---
-import Default from '@/layouts/default.astro';
+import Root from '@/layouts/Root.astro';
 import { AlertTriangle } from 'lucide-react';
 ---
 
-<Default>
+<Root>
+    <main
+       class="m-0 font-sans text-[18px] leading-[1.45] bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900">
   <div
     class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4"
   >
@@ -35,4 +37,5 @@ import { AlertTriangle } from 'lucide-react';
       </div>
     </div>
   </div>
-</Default>
+    </main>
+</Root>

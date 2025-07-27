@@ -1,0 +1,52 @@
+---
+import { Code2 } from "lucide-react";
+import { buttonVariants } from "../ui/button";
+import { ModeToggle } from "./mode-toggle";
+---
+
+<header class="border-b border-white/10 backdrop-blur-sm bg-white/5 dark:bg-gray-900/50">
+  <div class="container mx-auto px-4 py-4">
+    <nav class="flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <div class="w-8 h-8 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg flex items-center justify-center">
+          <Code2 class:list="w-5 h-5 text-white" />
+        </div>
+        <span class="text-xl font-bold text-gray-800 dark:text-white">FrontendPro</span>
+      </div>
+      <div class="hidden md:flex items-center space-x-4">
+        <a href="/courses" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors">
+          Courses
+        </a>
+        <a href="/docs" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors">
+          Docs
+        </a>
+        <a href="/features" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors">
+          Features
+        </a>
+        <a href="/pricing" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors">
+          Pricing
+        </a>
+
+
+        <a
+            href="/login"
+            class={buttonVariants({
+              className:
+                  'border-emerald-500 text-emerald-600 hover:bg-emerald-500 hover:text-white bg-transparent dark:border-emerald-400 dark:text-emerald-400 dark:hover:bg-emerald-500 dark:hover:text-white',
+              variant: 'outline',
+            })}
+        >
+          LogIn
+        </a>
+
+        <a
+            href="/signup"
+            class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600 text-white px-4 py-2"
+        >
+          Start Learning
+        </a>
+        <ModeToggle client:load />
+      </div>
+    </nav>
+  </div>
+</header>

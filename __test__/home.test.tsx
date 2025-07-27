@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import { Footer } from '../src/components/common/footer';
+import { Footer } from '@/components/common/footer.astro';
 
 describe('Footer', () => {
   it('renders the brand name', () => {

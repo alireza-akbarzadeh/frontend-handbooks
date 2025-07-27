@@ -8,7 +8,7 @@ import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
 
 import mdx from '@astrojs/mdx';
-
+import path from 'path';
 import db from '@astrojs/db';
 
 // https://astro.build/config
@@ -18,5 +18,10 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        '@': path.resolve('./src'),
+      },
+    },
   },
 });
