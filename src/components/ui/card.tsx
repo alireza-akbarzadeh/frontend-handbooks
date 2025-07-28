@@ -81,6 +81,43 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+
+interface CardGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+    cols?: number;
+    gap?: number;
+}
+
+
+const CardGroup = React.forwardRef<HTMLDivElement, CardGroupProps>(
+    ({ className, cols = 1, gap = 4, children, ...props }, ref) => {
+        return (
+            <div
+                ref={ref}
+                className={cn(
+                    'grid',
+                    `gap-${gap}`,
+                    className
+                )}
+                style={{
+                    gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
+                    gap: `${gap * 0.25}rem`,
+                }}
+                {...props}
+            >
+                {React.Children.map(children, (child) => {
+                    if (React.isValidElement<CardGroupProps>(child)) {
+                        return React.cloneElement(child, {
+                            className: cn('h-full', child.props.className),
+                        });
+                    }
+                    return child;
+                })}
+            </div>
+        );
+    }
+);
+
+
 export {
   Card,
   CardHeader,
@@ -89,4 +126,5 @@ export {
   CardAction,
   CardDescription,
   CardContent,
+  CardGroup
 }

@@ -7,62 +7,52 @@ import Footer from "../components/common/footer.astro"
 import Root from "../layouts/Root.astro"
 
 interface Props {
-  title: string;
-  description?: string;
-  currentPath?: string;
-  tableOfdocss?: any[];
-  relatedTopics?: {
-    html?: string[];
-    css?: string[];
-    javascript?: string[];
-    frameworks?: string[];
-    tools?: string[];
-  };
+    title: string;
+    description?: string;
+    currentPath?: string;
+    tableOfContents?: any[];
+    relatedTopics?: {
+        html?: string[];
+        css?: string[];
+        javascript?: string[];
+        frameworks?: string[];
+        tools?: string[];
+    };
 }
 
 const {
-  title,
-  description = 'Frontend Handbook - Your guide to modern web development',
-  currentPath = '',
-  tableOfdocss = [],
-  relatedTopics = {},
+    title,
+    description = "Frontend Handbook - Your guide to modern web development",
+    currentPath = "",
+    tableOfContents = [],
+    relatedTopics = {}
 } = Astro.props;
 ---
 
 <Root>
     <Header />
-    <div
-      class="container mx-auto px-4 flex-1 flex flex-col md:flex-row gap-6 py-8 max-w-7xl"
-    >
-      <!-- Left Sidebar - Navigation -->
-      <aside class="w-full md:w-64 shrink-0 md:sticky md:top-20 h-fit">
-        <Sidebar client:load currentPath={currentPath} />
-      </aside>
+    <div class="container mx-auto px-4 flex-1 flex flex-col md:flex-row gap-6 py-8 max-w-7xl">
+        <!-- Left Sidebar - Navigation -->
+        <aside class="w-full md:w-64 shrink-0 md:sticky md:top-20 h-fit">
+            <Sidebar currentPath={currentPath} />
+        </aside>
 
-      <!-- Main docs -->
-      <main
-        class="flex-1 min-w-0 prose dark:prose-invert prose-slate max-w-none"
-      >
-        <h1>{title}</h1>
-        <slot />
-      </main>
+        <!-- Main Content -->
+        <main class="flex-1 min-w-0 prose dark:prose-invert prose-slate max-w-none">
+            <h1>{title}</h1>
+            <slot />
+        </main>
 
-      <!-- Right Sidebar - Table of docss & Related docs -->
-      <aside
-        class="w-full md:w-72 shrink-0 md:sticky md:top-20 h-fit space-y-8"
-      >
-        {
-          tableOfdocss.length > 0 && (
-            <TableOfdocss headings={tableOfdocss} />
-          )
-        }
+        <!-- Right Sidebar - Table of Contents & Related Content -->
+        <aside class="w-full md:w-72 shrink-0 md:sticky md:top-20 h-fit space-y-8">
+            {tableOfContents.length > 0 && (
+                    <TableOfdocss headings={tableOfContents} />
+            )}
 
-        {
-          Object.keys(relatedTopics).length > 0 && (
-            <Relateddocs topics={relatedTopics} />
-          )
-        }
-      </aside>
+            {Object.keys(relatedTopics).length > 0 && (
+                    <Relateddocs topics={relatedTopics} />
+            )}
+        </aside>
     </div>
     <Footer/>
 </Root>
