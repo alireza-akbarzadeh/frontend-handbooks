@@ -35,7 +35,8 @@ const relatedDocs = await getCollection('docs', (doc: Doc) => {
   if (relatedTopics) {
     const categoryKeys = Object.keys(relatedTopics);
     for (const key of categoryKeys) {
-      const topics = relatedTopics[key];
+      const topics = 
+      relatedTopics[key];
       if (topics && topics.includes(doc.slug.split('/')[1])) {
         return true;
       }
@@ -127,7 +128,7 @@ const currentCategoryMeta = categoryMetadata[category] || {
               tagColors[tag.toLowerCase()] ||
               'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300';
             return (
-              <Badge variant="secondary" class={`${tagClass}`}>
+              <Badge variant="secondary" className={`${tagClass}`}>
                 {tag}
               </Badge>
             );
@@ -219,7 +220,7 @@ const currentCategoryMeta = categoryMetadata[category] || {
     relatedDocs.length > 0 && (
       <RelatedDocsEnhanced
         categoryMetadata={categoryMetadata}
-        relatedDocs={relatedDocs}
+        relatedDocs={relatedDocs || []}
       />
     )
   }
