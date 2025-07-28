@@ -1,0 +1,48 @@
+---
+export interface Props {
+  name: string;
+  description: string;
+  url: string;
+  icon: string;
+  color: 'blue' | 'green' | 'orange';
+}
+
+const { name, description, url, icon, color } = Astro.props;
+
+const colorClasses = {
+  blue: 'border-blue-200 hover:border-blue-300 bg-blue-50/50 dark:border-blue-800 dark:bg-blue-950/30',
+  green:
+    'border-green-200 hover:border-green-300 bg-green-50/50 dark:border-green-800 dark:bg-green-950/30',
+  orange:
+    'border-orange-200 hover:border-orange-300 bg-orange-50/50 dark:border-orange-800 dark:bg-orange-950/30',
+};
+---
+
+<div
+  class={`group relative overflow-hidden rounded-2xl border p-6 backdrop-blur-3xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 ${colorClasses[color]}`}
+>
+  <div class="mb-4">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="text-2xl">{icon}</span>
+      <h3 class="text-lg font-semibold">{name}</h3>
+    </div>
+    <p class="text-slate-600 dark:text-slate-300 text-sm mb-4">{description}</p>
+  </div>
+
+  <a
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="inline-flex items-center gap-2 w-full justify-center px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+  >
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+      ></path>
+    </svg>
+    Visit Tool
+  </a>
+</div>

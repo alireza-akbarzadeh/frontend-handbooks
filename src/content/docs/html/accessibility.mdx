@@ -1,124 +1,360 @@
 ---
-title: "HTML Semantics & Accessibility"
-description: "Learn about semantic HTML and web accessibility best practices"
+title: 'HTML Semantics & Accessibility'
+description: 'Learn about semantic HTML and web accessibility best practices'
 publishedDate: 2023-01-15
 updatedDate: 2025-01-10
 order: 0
-tags: ["html", "accessibility", "semantics"]
+tags: ['html', 'accessibility', 'semantics']
+author: 'Web Accessibility Team'
+featured: true
 ---
 
-import { Alert, AlertDescription, AlertTitle } from '../../../components/ui/alert'
-import {Steps ,Step} from '../../../components/ui/steps'
-import {CardGroup,Card} from '../../../components/ui/card'
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from '../../../components/ui/alert';
+import { Badge } from '../../../components/ui/badge';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '../../../components/ui/card';
+import PrincipleCard from '../../../components/common/principle-card.astro';
+import StepCard from '../../../components/common/step-card.astro';
+import ToolCard from '../../../components/common/tool-card.astro';
+import YouTubeEmbed from '../../../components/ui/YouTubeEmbed.astro';
+import Spotlight from '../../../components/ui/SpotLight.astro';
 
-# HTML Accessibility
+<div class="relative min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800">
 
-Web accessibility means designing and developing websites that can be used by everyone, including people with disabilities. Accessibility is not just a nice-to-have feature—it's a fundamental aspect of web development that ensures equal access to information and functionality for all users.
+<Spotlight />
 
-<Alert variant="info">
-    <AlertTitle>What is Accessibility?</AlertTitle>
-    <AlertDescription>
+<div class="relative z-10">
+
+{/* Introduction Alert */}
+
+<div class="container mx-auto px-4 mb-16">
+  <div class="max-w-4xl mx-auto">
+    <Alert variant="info" class="mb-8 border-blue-200 bg-blue-50/50 dark:border-blue-800 dark:bg-blue-950/30">
+      <AlertTitle class="text-blue-800 dark:text-blue-200">What is Accessibility?</AlertTitle>
+      <AlertDescription class="text-blue-700 dark:text-blue-300">
         Accessibility involves making content usable for people with disabilities including vision, hearing, motor, and cognitive impairments.
-    </AlertDescription>
-</Alert>
+      </AlertDescription>
+    </Alert>
 
-## Why Accessibility Matters
+    <Card class="relative overflow-hidden border-gradient">
+      <CardHeader>
+        <CardTitle class="flex items-center gap-2 text-2xl">
+          <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+          </svg>
+          Why Accessibility Matters
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="text-center p-4">
+            <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+              </svg>
+            </div>
+            <h3 class="font-semibold mb-2">Inclusivity</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400">
+              Everyone deserves equal access to digital content
+            </p>
+          </div>
+          <div class="text-center p-4">
+            <div class="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <h3 class="font-semibold mb-2">Legal Compliance</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400">
+              Many countries have laws mandating accessibility
+            </p>
+          </div>
+          <div class="text-center p-4">
+            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+            </div>
+            <h3 class="font-semibold mb-2">Better UX</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400">
+              Accessible sites are often easier to use for all users
+            </p>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
 
-- **Inclusivity**: Everyone deserves equal access to digital content
-- **Legal Compliance**: Many countries have laws mandating accessibility
-- **Better UX**: Accessible sites are often easier to use for all users
+  </div>
+</div>
 
-<Alert variant="warning">
-    <AlertTitle>Legal Note</AlertTitle>
-    <AlertDescription>
-        Not complying with accessibility laws may result in lawsuits or penalties, especially in regions with strict accessibility requirements.
-    </AlertDescription>
-</Alert>
+{/* Warning Alert */}
+
+<div class="container mx-auto px-4 mb-16">
+  <div class="max-w-4xl mx-auto">
+    <Alert
+      variant="warning"
+      class="border-amber-200 bg-amber-50/50 dark:border-amber-800 dark:bg-amber-950/30"
+    >
+      <AlertTitle class="text-amber-800 dark:text-amber-200">
+        Legal Note
+      </AlertTitle>
+      <AlertDescription class="text-amber-700 dark:text-amber-300">
+        Not complying with accessibility laws may result in lawsuits or
+        penalties, especially in regions with strict accessibility requirements.
+      </AlertDescription>
+    </Alert>
+  </div>
+</div>
 
 ## Key Principles of Accessibility
 
-### 1. Perceivable
+<div class="container mx-auto px-4 mb-20">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+        The four fundamental principles that guide accessible web design
+      </p>
+    </div>
 
-Users must be able to perceive the information being presented.
+    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+      <PrincipleCard
+        title="Perceivable"
+        description="Information must be presentable in ways users can perceive"
+        icon="eye"
+        variant="blue"
+        details="Provide text alternatives, captions, and ensure good contrast ratios"
+      />
+      <PrincipleCard
+        title="Operable"
+        description="Interface components must be operable by all users"
+        icon="mouse"
+        variant="emerald"
+        details="Ensure keyboard navigation and avoid seizure-inducing content"
+      />
+      <PrincipleCard
+        title="Understandable"
+        description="Information and UI operation must be understandable"
+        icon="brain"
+        variant="purple"
+        details="Use clear language and predictable functionality"
+      />
+      <PrincipleCard
+        title="Robust"
+        description="Content must work across various technologies"
+        icon="shield"
+        variant="amber"
+        details="Ensure compatibility with assistive technologies"
+      />
+    </div>
 
-- Provide text alternatives for non-text content
-- Create content that can be presented in different ways
-
-### 2. Operable
-
-Users must be able to operate the interface.
-
-- Make all functionality available from a keyboard
-- Give users enough time to read and use content
-
-### 3. Understandable
-
-Users must be able to understand the information and UI operation.
-
-- Make text readable and understandable
-- Help users avoid and correct mistakes
-
-### 4. Robust
-
-Content must work reliably across various user agents and assistive technologies.
-
-- Maximize compatibility with current and future tools
-
-<CardGroup>
-    <Card>
-        <h3 className="text-lg font-semibold">Perceivable</h3>
-        <p className="text-sm text-muted-foreground">Information must be presentable in perceivable ways.</p>
-    </Card>
-    <Card>
-        <h3 className="text-lg font-semibold">Operable</h3>
-        <p className="text-sm text-muted-foreground">Interface must be operable by all users.</p>
-    </Card>
-    <Card>
-        <h3 className="text-lg font-semibold">Understandable</h3>
-        <p className="text-sm text-muted-foreground">Information and UI must be understandable.</p>
-    </Card>
-    <Card>
-        <h3 className="text-lg font-semibold">Robust</h3>
-        <p className="text-sm text-muted-foreground">Content must work across devices and technologies.</p>
-    </Card>
-</CardGroup>
+  </div>
+</div>
 
 ## Steps to Make a Website Accessible
 
-<Steps>
-    <Step title="Use Semantic HTML">
-        Use proper HTML elements for their intended purpose (e.g., `button` for actions).
-    </Step>
-    <Step title="Ensure Keyboard Navigation">
-        All interactive elements should be keyboard accessible.
-    </Step>
-    <Step title="Add ARIA When Needed">
-        Use ARIA only when native HTML semantics aren't sufficient.
-    </Step>
-    <Step title="Provide Text Alternatives">
-        Include alt text for images and proper form labels.
-    </Step>
-    <Step title="Use Color Carefully">
-        Ensure good contrast and don't rely solely on color.
-    </Step>
-</Steps>
+<div class="container mx-auto px-4 mb-20">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+        Follow these essential steps to create accessible web experiences
+      </p>
+    </div>
 
-<Alert variant="destructive">
-    <AlertTitle>Warning</AlertTitle>
-    <AlertDescription>
-        Avoid using non-semantic elements (`div`, `span`) for interactive controls.
-    </AlertDescription>
+    <div class="space-y-6">
+      <StepCard
+        step={1}
+        title="Use Semantic HTML"
+        description="Use proper HTML elements for their intended purpose (e.g., <button> for actions)"
+        icon="code"
+      />
+      <StepCard
+        step={2}
+        title="Ensure Keyboard Navigation"
+        description="All interactive elements should be accessible via keyboard"
+        icon="mouse"
+      />
+      <StepCard
+        step={3}
+        title="Add ARIA When Needed"
+        description="Use ARIA attributes only when native HTML semantics aren't sufficient"
+        icon="accessibility"
+      />
+      <StepCard
+        step={4}
+        title="Provide Text Alternatives"
+        description="Include alt text for images and proper labels for form elements"
+        icon="book"
+      />
+      <StepCard
+        step={5}
+        title="Use Color Carefully"
+        description="Ensure good contrast ratios and don't rely solely on color for information"
+        icon="eye"
+      />
+    </div>
+
+  </div>
+</div>
+
+<Alert variant="destructive" class="container mx-auto px-4 mb-16 max-w-4xl">
+  <AlertTitle>Warning</AlertTitle>
+  <AlertDescription>
+    Avoid using non-semantic elements (
+    <code class="bg-red-50 dark:bg-red-900/30 px-1 rounded text-red-600 dark:text-red-400 font-mono">
+      div
+    </code>
+    ,<code class="bg-red-50 dark:bg-red-900/30 px-1 rounded text-red-600 dark:text-red-400 font-mono">
+      span
+    </code>) for interactive controls.
+  </AlertDescription>
 </Alert>
+
+## Learn More About Web Accessibility
+
+<div class="container mx-auto px-4 mb-20">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-8">
+      <h3 class="text-3xl font-bold bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-transparent mb-4 flex items-center justify-center gap-2">
+        <svg class="w-8 h-8 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+        Learn More About Web Accessibility
+      </h3>
+      <p class="text-lg text-slate-600 dark:text-slate-300">
+        Watch this comprehensive guide to understanding web accessibility
+      </p>
+    </div>
+
+    <YouTubeEmbed
+      videoId="20SHvU2PKsM"
+      title="Web Accessibility in 100 Seconds"
+      description="A quick overview of web accessibility principles and why they matter for creating inclusive web experiences."
+    />
+
+  </div>
+</div>
 
 ## Tools and Resources
 
-- [WAVE Accessibility Tool](https://wave.webaim.org/)
-- [Axe DevTools](https://www.deque.com/axe/devtools/)
-- [WCAG Guidelines](https://www.w3.org/WAI/standards-guidelines/wcag/)
+<div class="container mx-auto px-4 mb-20">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+        Test and improve accessibility with these trusted tools
+      </p>
+    </div>
 
-<Alert variant="info">
-    <AlertTitle>Tip</AlertTitle>
-    <AlertDescription>
-        Use browser extensions like Axe or Lighthouse to audit accessibility.
-    </AlertDescription>
+    <div class="grid md:grid-cols-3 gap-6">
+      <ToolCard
+        name="WAVE Accessibility Tool"
+        description="Visual accessibility testing in your browser"
+        url="https://wave.webaim.org/"
+        icon="🌐"
+        color="blue"
+      />
+      <ToolCard
+        name="Axe DevTools"
+        description="Browser extension for comprehensive accessibility audits"
+        url="https://www.deque.com/axe/devtools/"
+        icon="🔍"
+        color="green"
+      />
+      <ToolCard
+        name="WCAG Guidelines"
+        description="Official Web Content Accessibility Guidelines"
+        url="https://www.w3.org/WAI/standards-guidelines/wcag/"
+        icon="📜"
+        color="orange"
+      />
+    </div>
+
+  </div>
+</div>
+
+<Alert variant="info" class="container mx-auto px-4 mb-16 max-w-4xl">
+  <AlertTitle>Pro Tip</AlertTitle>
+  <AlertDescription>
+    Use browser extensions like Axe or Lighthouse to audit accessibility during
+    development. Regular testing ensures your site remains accessible as it
+    grows.
+  </AlertDescription>
 </Alert>
+
+{/* Footer */}
+
+<footer class="border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur-sm">
+  <div class="container mx-auto px-4 py-12">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="flex items-center justify-center gap-2 mb-4">
+        <svg
+          class="w-6 h-6 text-blue-600"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        <h3 class="text-xl font-semibold">Learn More About Accessibility</h3>
+      </div>
+      <p class="text-slate-600 dark:text-slate-300 mb-6">
+        Continue your accessibility journey with more resources and tutorials
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a
+          href="https://www.youtube.com/results?search_query=web+accessibility+tutorial"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+          </svg>
+          More YouTube Tutorials
+        </a>
+        <a
+          href="https://www.w3.org/WAI/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+        >
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+            />
+          </svg>
+          W3C Accessibility Initiative
+        </a>
+      </div>
+      <div class="border-t border-slate-200 dark:border-slate-700 my-8"></div>
+      <p class="text-sm text-slate-500 dark:text-slate-400">
+        Making the web accessible for everyone, one website at a time.
+      </p>
+    </div>
+  </div>
+</footer>
+
+</div>
+
+</div>
+\`\`\`

@@ -1,32 +1,12 @@
-'use client';
-
 import { ExternalLink } from 'lucide-react';
 import { useState } from 'react';
 
-// Astro content collection types
-interface RenderedContent {
-  html: string;
-}
-
-interface Render {
-  '.md': RenderedContent;
-}
-
-interface InferEntrySchema {
-  title: string;
-  description?: string;
-  [key: string]: any;
-}
-
-interface RelatedDoc {
-  id: string;
-  render(): Render['.md'];
+interface Doc {
   slug: string;
-  body: string;
-  collection: 'docs';
-  data: InferEntrySchema;
-  rendered?: RenderedContent;
-  filePath?: string;
+  data: {
+    title: string;
+    description?: string;
+  };
 }
 
 interface CategoryMetadata {
@@ -38,7 +18,7 @@ interface CategoryMetadata {
 }
 
 interface RelatedDocsProps {
-  relatedDocs: RelatedDoc[];
+  relatedDocs: Doc[];
   categoryMetadata: CategoryMetadata;
 }
 
@@ -90,33 +70,6 @@ const generateCategoryGradients = (color: string, index: number) => {
       shadowColor: 'shadow-yellow-500/20 dark:shadow-yellow-400/10',
       textColor: 'text-yellow-600 dark:text-yellow-400',
     },
-    orange: {
-      gradient: 'from-orange-400 via-red-500 to-pink-500',
-      bgGradient:
-        'from-orange-50 via-red-50 to-pink-50 dark:from-orange-950/20 dark:via-red-950/20 dark:to-pink-950/20',
-      borderGradient:
-        'from-orange-200 via-red-200 to-pink-200 dark:from-orange-800 dark:via-red-800 dark:to-pink-800',
-      shadowColor: 'shadow-orange-500/20 dark:shadow-orange-400/10',
-      textColor: 'text-orange-600 dark:text-orange-400',
-    },
-    pink: {
-      gradient: 'from-rose-400 via-pink-500 to-fuchsia-500',
-      bgGradient:
-        'from-rose-50 via-pink-50 to-fuchsia-50 dark:from-rose-950/20 dark:via-pink-950/20 dark:to-fuchsia-950/20',
-      borderGradient:
-        'from-rose-200 via-pink-200 to-fuchsia-200 dark:from-rose-800 dark:via-pink-800 dark:to-fuchsia-800',
-      shadowColor: 'shadow-rose-500/20 dark:shadow-rose-400/10',
-      textColor: 'text-rose-600 dark:text-rose-400',
-    },
-    indigo: {
-      gradient: 'from-indigo-400 via-purple-500 to-violet-500',
-      bgGradient:
-        'from-indigo-50 via-purple-50 to-violet-50 dark:from-indigo-950/20 dark:via-purple-950/20 dark:to-violet-950/20',
-      borderGradient:
-        'from-indigo-200 via-purple-200 to-violet-200 dark:from-indigo-800 dark:via-purple-800 dark:to-violet-800',
-      shadowColor: 'shadow-indigo-500/20 dark:shadow-indigo-400/10',
-      textColor: 'text-indigo-600 dark:text-indigo-400',
-    },
     gray: {
       gradient: 'from-slate-400 via-gray-500 to-zinc-500',
       bgGradient:
@@ -135,9 +88,6 @@ const generateCategoryGradients = (color: string, index: number) => {
     gradientMap.green,
     gradientMap.red,
     gradientMap.yellow,
-    gradientMap.orange,
-    gradientMap.pink,
-    gradientMap.indigo,
   ];
 
   return gradientMap[color] || fallbackColors[index % fallbackColors.length];
@@ -176,17 +126,17 @@ export function RelatedDocsEnhanced({
             const catMeta = categoryMetadata[docCategory] || {
               color: 'gray',
               title: 'Documentation',
-              icon: '/placeholder.svg?height=16&width=16',
+              icon: '',
             };
             const colors = generateCategoryGradients(catMeta.color, index);
-            const isHovered = hoveredDoc === doc.id;
+            const isHovered = hoveredDoc === doc.slug;
 
             return (
               <div
-                key={doc.id}
+                key={doc.slug}
                 className={`relative group transform transition-all duration-500 hover:scale-[1.02] animate-in fade-in-0 slide-in-from-bottom-4`}
                 style={{ animationDelay: `${index * 100}ms` }}
-                onMouseEnter={() => setHoveredDoc(doc.id)}
+                onMouseEnter={() => setHoveredDoc(doc.slug)}
                 onMouseLeave={() => setHoveredDoc(null)}
               >
                 {/* Animated gradient border */}
@@ -217,13 +167,17 @@ export function RelatedDocsEnhanced({
                         isHovered ? 'scale-110 rotate-3' : ''
                       }`}
                     >
-                      <img
-                        src={catMeta.icon || '/placeholder.svg'}
-                        alt={catMeta.title}
-                        width="16"
-                        height="16"
-                        className="w-4 h-4 brightness-0 invert drop-shadow-sm"
-                      />
+                      {catMeta.icon ? (
+                        <img
+                          src={catMeta.icon || '/placeholder.svg'}
+                          alt=""
+                          width="16"
+                          height="16"
+                          className="w-4 h-4 brightness-0 invert drop-shadow-sm"
+                        />
+                      ) : (
+                        <div className="w-4 h-4 rounded-full bg-white/80"></div>
+                      )}
                       {isHovered && (
                         <div className="absolute inset-0 rounded-lg bg-white/20 animate-ping"></div>
                       )}
@@ -257,20 +211,6 @@ export function RelatedDocsEnhanced({
                       {doc.data.description}
                     </p>
                   )}
-
-                  {/* Document metadata */}
-                  <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400 mb-4">
-                    <span className="flex items-center gap-1">
-                      <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
-                      {doc.collection}
-                    </span>
-                    {doc.filePath && (
-                      <span className="flex items-center gap-1 truncate">
-                        <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
-                        {doc.filePath.split('/').pop()}
-                      </span>
-                    )}
-                  </div>
 
                   {/* Animated Arrow */}
                   <div

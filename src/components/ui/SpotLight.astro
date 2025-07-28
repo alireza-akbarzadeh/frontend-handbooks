@@ -1,0 +1,97 @@
+<div class="pointer-events-none absolute inset-0 z-10 h-full w-full">
+  <div
+    class="spotlight-animation pointer-events-none absolute left-0 top-0 z-0 h-screen w-screen"
+  >
+    <div class="spotlight-gradient-1 absolute left-0 top-0"></div>
+    <div class="spotlight-gradient-2 absolute left-0 top-0 origin-top-left">
+    </div>
+    <div class="spotlight-gradient-3 absolute left-0 top-0 origin-top-left">
+    </div>
+  </div>
+
+  <div
+    class="spotlight-animation-reverse pointer-events-none absolute right-0 top-0 z-40 h-screen w-screen"
+  >
+    <div class="spotlight-gradient-1 absolute right-0 top-0"></div>
+    <div class="spotlight-gradient-2 absolute right-0 top-0 origin-top-right">
+    </div>
+    <div class="spotlight-gradient-3 absolute right-0 top-0 origin-top-right">
+    </div>
+  </div>
+</div>
+
+<style>
+  .spotlight-gradient-1 {
+    transform: translateY(-350px) rotate(-45deg);
+    background: radial-gradient(
+      68.54% 68.72% at 55.02% 31.46%,
+      hsla(220, 100%, 50%, 0.08) 0,
+      hsla(225, 100%, 55%, 0.04) 50%,
+      hsla(220, 100%, 45%, 0) 80%
+    );
+    width: 560px;
+    height: 1380px;
+  }
+
+  .spotlight-gradient-2 {
+    transform: rotate(-45deg) translate(5%, -50%);
+    background: radial-gradient(
+      50% 50% at 50% 50%,
+      hsla(215, 100%, 85%, 0.08) 0,
+      hsla(220, 100%, 55%, 0.04) 80%,
+      transparent 100%
+    );
+    width: 240px;
+    height: 1380px;
+  }
+
+  .spotlight-gradient-3 {
+    transform: rotate(-45deg) translate(-180%, -70%);
+    background: radial-gradient(
+      50% 50% at 50% 50%,
+      hsla(210, 100%, 85%, 0.06) 0,
+      hsla(215, 100%, 85%, 0.06) 80%,
+      transparent 100%
+    );
+    width: 240px;
+    height: 1380px;
+  }
+
+  .spotlight-animation {
+    animation: spotlight-move 7s ease-in-out infinite alternate;
+  }
+
+  .spotlight-animation-reverse {
+    animation: spotlight-move-reverse 7s ease-in-out infinite alternate;
+  }
+
+  @keyframes spotlight-move {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100px);
+    }
+  }
+
+  @keyframes spotlight-move-reverse {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100px);
+    }
+  }
+
+  .spotlight-animation-reverse .spotlight-gradient-1 {
+    transform: translateY(-350px) rotate(45deg);
+  }
+
+  .spotlight-animation-reverse .spotlight-gradient-2 {
+    transform: rotate(45deg) translate(-5%, -50%);
+  }
+
+  .spotlight-animation-reverse .spotlight-gradient-3 {
+    transform: rotate(45deg) translate(180%, -70%);
+  }
+</style>

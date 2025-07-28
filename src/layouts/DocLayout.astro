@@ -2,57 +2,60 @@
 import { Sidebar } from '../components/common/sidebar';
 import { TableOfdocss } from '../components/common/table-content';
 import { Relateddocs } from '../components/common/related-content';
-import Header from "../components/common/header.astro"
-import Footer from "../components/common/footer.astro"
-import Root from "../layouts/Root.astro"
+import Header from '../components/common/header.astro';
+import Footer from '../components/common/footer.astro';
+import Root from '../layouts/RootLayout.astro';
 
 interface Props {
-    title: string;
-    description?: string;
-    currentPath?: string;
-    tableOfContents?: any[];
-    relatedTopics?: {
-        html?: string[];
-        css?: string[];
-        javascript?: string[];
-        frameworks?: string[];
-        tools?: string[];
-    };
+  description?: string;
+  currentPath?: string;
+  tableOfContents?: any[];
+  relatedTopics?: {
+    html?: string[];
+    css?: string[];
+    javascript?: string[];
+    frameworks?: string[];
+    tools?: string[];
+  };
 }
 
 const {
-    title,
-    description = "Frontend Handbook - Your guide to modern web development",
-    currentPath = "",
-    tableOfContents = [],
-    relatedTopics = {}
+  description = 'Frontend Handbook - Your guide to modern web development',
+  currentPath = '',
+  tableOfContents = [],
+  relatedTopics = {},
 } = Astro.props;
 ---
 
 <Root>
-    <Header />
-    <div class="container mx-auto px-4 flex-1 flex flex-col md:flex-row gap-6 py-8 max-w-7xl">
-        <!-- Left Sidebar - Navigation -->
-        <aside class="w-full md:w-64 shrink-0 md:sticky md:top-20 h-fit">
-            <Sidebar currentPath={currentPath} />
-        </aside>
+  <Header />
+  <div
+    class="container mx-auto px-4 flex-1 flex flex-col md:flex-row gap-6 pb-8"
+  >
+    <!-- Left Sidebar - Navigation -->
+    <aside class="w-full md:w-64 shrink-0 md:sticky md:top-20 h-fit">
+      <Sidebar client:load currentPath={currentPath} />
+    </aside>
 
-        <!-- Main Content -->
-        <main class="flex-1 min-w-0 prose dark:prose-invert prose-slate max-w-none">
-            <h1>{title}</h1>
-            <slot />
-        </main>
+    <!-- Main Content -->
+    <main class="flex-1 min-w-0 prose dark:prose-invert prose-slate max-w-none">
+      <slot />
+    </main>
 
-        <!-- Right Sidebar - Table of Contents & Related Content -->
-        <aside class="w-full md:w-72 shrink-0 md:sticky md:top-20 h-fit space-y-8">
-            {tableOfContents.length > 0 && (
-                    <TableOfdocss headings={tableOfContents} />
-            )}
+    <!-- Right Sidebar - Table of Contents & Related Content -->
+    <aside class="w-full md:w-72 shrink-0 md:sticky md:top-20 h-fit space-y-8">
+      {
+        tableOfContents.length > 0 && (
+          <TableOfdocss headings={tableOfContents} />
+        )
+      }
 
-            {Object.keys(relatedTopics).length > 0 && (
-                    <Relateddocs topics={relatedTopics} />
-            )}
-        </aside>
-    </div>
-    <Footer/>
+      {
+        Object.keys(relatedTopics).length > 0 && (
+          <Relateddocs topics={relatedTopics} />
+        )
+      }
+    </aside>
+  </div>
+  <Footer />
 </Root>
