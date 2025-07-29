@@ -1,15 +1,15 @@
 ---
-import DocLayout from '../../../layouts/DocLayout.astro';
-import { getCollection } from 'astro:content';
-import type { Doc } from '../../../types/docs';
+import DocLayout from "../../../layouts/DocLayout.astro";
+import { getCollection } from "astro:content";
+import type { Doc } from "../../../types/docs";
 
 // Generate paths for all categories
 export async function getStaticPaths() {
-  const allDocs = await getCollection('docs');
+  const allDocs = await getCollection("docs");
 
   // Extract unique categories from file paths
   const categories = [
-    ...new Set(allDocs.map((doc: Doc) => doc.slug.split('/')[0])),
+    ...new Set(allDocs.map((doc: Doc) => doc.slug.split("/")[0])),
   ];
 
   return categories.map((category) => ({
@@ -18,10 +18,12 @@ export async function getStaticPaths() {
   }));
 }
 
-const { category } = Astro.props;
+const { category } = Astro.props as {
+  category: keyof typeof categoryMetadata | string;
+};
 
 // Get all docs for this category
-const allCategoryDocs = await getCollection('docs', (doc: Doc) => {
+const allCategoryDocs = await getCollection("docs", (doc: Doc) => {
   return doc.slug.startsWith(`${category}/`);
 });
 
@@ -36,56 +38,61 @@ const sortedDocs = allCategoryDocs.sort((a: Doc, b: Doc) => {
 // Category metadata
 const categoryMetadata = {
   javascript: {
-    title: 'JavaScript',
-    description: 'Modern JavaScript concepts, patterns, and best practices',
-    color: 'amber',
-    icon: '/icons/javascript.svg',
-    heroImage: '/images/javascript-hero.webp',
+    title: "JavaScript",
+    description: "Modern JavaScript concepts, patterns, and best practices",
+    color: "amber",
+    icon: "/icons/javascript.svg",
+    heroImage: "/images/javascript-hero.webp",
   },
   html: {
-    title: 'HTML',
-    description: 'Semantic HTML, accessibility, and structure',
-    color: 'blue',
-    icon: '/icons/html.svg',
-    heroImage: '/images/html-hero.webp',
+    title: "HTML",
+    description: "Semantic HTML, accessibility, and structure",
+    color: "blue",
+    icon: "/icons/html.svg",
+    heroImage: "/images/html-hero.webp",
   },
   css: {
-    title: 'CSS',
-    description: 'Styling, layouts, animations, and responsive design',
-    color: 'purple',
-    icon: '/icons/css.svg',
-    heroImage: '/images/css-hero.webp',
+    title: "CSS",
+    description: "Styling, layouts, animations, and responsive design",
+    color: "purple",
+    icon: "/icons/css.svg",
+    heroImage: "/images/css-hero.webp",
   },
   git: {
-    title: 'Git & GitHub',
-    description: 'Version control, collaboration, and workflows',
-    color: 'orange',
-    icon: '/icons/git.svg',
-    heroImage: '/images/git-hero.webp',
+    title: "Git & GitHub",
+    description: "Version control, collaboration, and workflows",
+    color: "orange",
+    icon: "/icons/git.svg",
+    heroImage: "/images/git-hero.webp",
   },
   frameworks: {
-    title: 'Frameworks',
-    description: 'Modern frontend frameworks and libraries',
-    color: 'emerald',
-    icon: '/icons/frameworks.svg',
-    heroImage: '/images/frameworks-hero.webp',
+    title: "Frameworks",
+    description: "Modern frontend frameworks and libraries",
+    color: "emerald",
+    icon: "/icons/frameworks.svg",
+    heroImage: "/images/frameworks-hero.webp",
   },
   tools: {
-    title: 'Developer Tools',
-    description: 'Build tools, testing, and development workflows',
-    color: 'slate',
-    icon: '/icons/tools.svg',
-    heroImage: '/images/tools-hero.webp',
+    title: "Developer Tools",
+    description: "Build tools, testing, and development workflows",
+    color: "slate",
+    icon: "/icons/tools.svg",
+    heroImage: "/images/tools-hero.webp",
   },
 };
 
 // Fallback for categories not in the metadata
-const currentCategoryMeta = categoryMetadata[category] || {
+const currentCategoryMeta = (
+  categoryMetadata as Record<
+    string,
+    (typeof categoryMetadata)[keyof typeof categoryMetadata]
+  >
+)[category] || {
   title: category.charAt(0).toUpperCase() + category.slice(1),
   description: `Documentation about ${category}`,
-  color: 'gray',
-  icon: '/icons/default.svg',
-  heroImage: '/images/default-hero.webp',
+  color: "gray",
+  icon: "/icons/default.svg",
+  heroImage: "/images/default-hero.webp",
 };
 
 // Group docs by tags
@@ -93,12 +100,11 @@ const tags = [...new Set(sortedDocs.flatMap((doc) => doc.data.tags || []))];
 ---
 
 <DocLayout
-  title={`${currentCategoryMeta.title} Documentation`}
   description={currentCategoryMeta.description}
   currentPath={`/docs/${category}`}
 >
   <div class="mb-12">
-    <div class="flex items-center gap-3 mb-4">
+    <div class="mb-4 flex items-center gap-3">
       <img
         src={currentCategoryMeta.icon}
         alt=""
@@ -116,11 +122,11 @@ const tags = [...new Set(sortedDocs.flatMap((doc) => doc.data.tags || []))];
   {
     tags.length > 0 && (
       <div class="mb-10">
-        <div class="flex gap-2 flex-wrap">
+        <div class="flex flex-wrap gap-2">
           {tags.map((tag) => (
             <a
               href={`/docs/${category}?tag=${tag}`}
-              class={`px-3 py-1 rounded-full text-sm bg-${currentCategoryMeta.color}-100 dark:bg-${currentCategoryMeta.color}-900/30 text-${currentCategoryMeta.color}-700 dark:text-${currentCategoryMeta.color}-400 hover:bg-${currentCategoryMeta.color}-200 dark:hover:bg-${currentCategoryMeta.color}-900/50 transition-colors`}
+              class={`rounded-full px-3 py-1 text-sm bg-${currentCategoryMeta.color}-100 dark:bg-${currentCategoryMeta.color}-900/30 text-${currentCategoryMeta.color}-700 dark:text-${currentCategoryMeta.color}-400 hover:bg-${currentCategoryMeta.color}-200 dark:hover:bg-${currentCategoryMeta.color}-900/50 transition-colors`}
             >
               {tag}
             </a>
@@ -131,26 +137,26 @@ const tags = [...new Set(sortedDocs.flatMap((doc) => doc.data.tags || []))];
   }
 
   <!-- Documentation Articles -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+  <div class="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2">
     {
       sortedDocs.map((doc: Doc) => (
         <a
           href={`/docs/${doc.slug}`}
-          class={`p-6 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-${currentCategoryMeta.color}-300 dark:hover:border-${currentCategoryMeta.color}-800 transition-all bg-white dark:bg-slate-900/50 hover:shadow-md`}
+          class={`rounded-lg border border-slate-200 p-6 dark:border-slate-800 hover:border-${currentCategoryMeta.color}-300 dark:hover:border-${currentCategoryMeta.color}-800 bg-white transition-all hover:shadow-md dark:bg-slate-900/50`}
         >
           <h2
-            class={`text-xl font-bold mb-2 text-${currentCategoryMeta.color}-700 dark:text-${currentCategoryMeta.color}-400`}
+            class={`mb-2 text-xl font-bold text-${currentCategoryMeta.color}-700 dark:text-${currentCategoryMeta.color}-400`}
           >
             {doc.data.title}
           </h2>
-          <p class="text-slate-600 dark:text-slate-400 mb-3">
-            {doc.data.description || ''}
+          <p class="mb-3 text-slate-600 dark:text-slate-400">
+            {doc.data.description || ""}
           </p>
           {doc.data.tags && doc.data.tags.length > 0 && (
-            <div class="flex gap-1 flex-wrap">
+            <div class="flex flex-wrap gap-1">
               {doc.data.tags.map((tag) => (
                 <span
-                  class={`px-2 py-0.5 rounded-md text-xs bg-${currentCategoryMeta.color}-50 dark:bg-${currentCategoryMeta.color}-900/20 text-${currentCategoryMeta.color}-600 dark:text-${currentCategoryMeta.color}-400`}
+                  class={`rounded-md px-2 py-0.5 text-xs bg-${currentCategoryMeta.color}-50 dark:bg-${currentCategoryMeta.color}-900/20 text-${currentCategoryMeta.color}-600 dark:text-${currentCategoryMeta.color}-400`}
                 >
                   {tag}
                 </span>
@@ -171,7 +177,7 @@ const tags = [...new Set(sortedDocs.flatMap((doc) => doc.data.tags || []))];
     >
       Continue Learning
     </h2>
-    <p class="text-slate-700 dark:text-slate-300 mb-4">
+    <p class="mb-4 text-slate-700 dark:text-slate-300">
       Ready to dive deeper? Check out these related topics:
     </p>
     <div class="flex flex-wrap gap-3">
@@ -182,7 +188,7 @@ const tags = [...new Set(sortedDocs.flatMap((doc) => doc.data.tags || []))];
           .map(([key, meta]) => (
             <a
               href={`/docs/${key}`}
-              class={`inline-flex items-center px-4 py-2 rounded-md bg-white dark:bg-slate-800 text-${meta.color}-600 dark:text-${meta.color}-400 hover:bg-${meta.color}-50 dark:hover:bg-${meta.color}-900/20 transition-colors`}
+              class={`inline-flex items-center rounded-md bg-white px-4 py-2 dark:bg-slate-800 text-${meta.color}-600 dark:text-${meta.color}-400 hover:bg-${meta.color}-50 dark:hover:bg-${meta.color}-900/20 transition-colors`}
             >
               <img src={meta.icon} alt="" width="16" height="16" class="mr-2" />
               {meta.title}
