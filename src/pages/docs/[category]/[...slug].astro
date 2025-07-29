@@ -1,16 +1,17 @@
 ---
-import DocLayout from '../../../layouts/DocLayout.astro';
-import { getCollection } from 'astro:content';
-import type { Doc } from '../../../types/docs';
-import { Badge } from '../../../components/ui/badge';
-import { RelatedDocsEnhanced } from '../../../components/common/related-content';
+import DocLayout from "../../../layouts/DocLayout.astro";
+import { getCollection } from "astro:content";
+import type { Doc } from "../../../types/docs";
+import { Badge } from "../../../components/ui/badge";
+import { RelatedDocsEnhanced } from "../../../components/common/related-content";
+import { type RelatedDoc } from "../../../types/docs";
 
 // Generate all possible category/slug combinations
 export async function getStaticPaths() {
-  const allDocs = await getCollection('docs');
+  const allDocs = await getCollection("docs");
 
   return allDocs.map((entry: Doc) => {
-    const [category, slug] = entry.slug.split('/');
+    const [category, slug] = entry.slug.split("/");
     return {
       params: { category, slug },
       props: { entry },
@@ -23,7 +24,7 @@ const { Content, headings } = await entry.render();
 const { category, slug } = Astro.params;
 
 // Find related docs
-const relatedDocs = await getCollection('docs', (doc: Doc) => {
+const relatedDocs = await getCollection("docs", (doc: Doc) => {
   // Don't include the current doc
   if (doc.id === entry.id) return false;
 
@@ -35,9 +36,8 @@ const relatedDocs = await getCollection('docs', (doc: Doc) => {
   if (relatedTopics) {
     const categoryKeys = Object.keys(relatedTopics);
     for (const key of categoryKeys) {
-      const topics = 
-      relatedTopics[key];
-      if (topics && topics.includes(doc.slug.split('/')[1])) {
+      const topics = relatedTopics[key as keyof typeof relatedTopics];
+      if (topics && topics.includes(doc.slug.split("/")[1])) {
         return true;
       }
     }
@@ -47,44 +47,45 @@ const relatedDocs = await getCollection('docs', (doc: Doc) => {
 }).then((docs) => docs.slice(0, 3));
 
 // Category metadata
-const categoryMetadata = {
+type CategoryMeta = { title: string; color: string; icon: string };
+const categoryMetadata: Record<string, CategoryMeta> = {
   javascript: {
-    title: 'JavaScript',
-    color: 'amber',
-    icon: '/icons/javascript.svg',
+    title: "JavaScript",
+    color: "amber",
+    icon: "/icons/javascript.svg",
   },
   html: {
-    title: 'HTML',
-    color: 'blue',
-    icon: '/icons/html.svg',
+    title: "HTML",
+    color: "blue",
+    icon: "/icons/html.svg",
   },
   css: {
-    title: 'CSS',
-    color: 'purple',
-    icon: '/icons/css.svg',
+    title: "CSS",
+    color: "purple",
+    icon: "/icons/css.svg",
   },
   git: {
-    title: 'Git & GitHub',
-    color: 'orange',
-    icon: '/icons/git.svg',
+    title: "Git & GitHub",
+    color: "orange",
+    icon: "/icons/git.svg",
   },
   frameworks: {
-    title: 'Frameworks',
-    color: 'emerald',
-    icon: '/icons/frameworks.svg',
+    title: "Frameworks",
+    color: "emerald",
+    icon: "/icons/frameworks.svg",
   },
   tools: {
-    title: 'Developer Tools',
-    color: 'slate',
-    icon: '/icons/tools.svg',
+    title: "Developer Tools",
+    color: "slate",
+    icon: "/icons/tools.svg",
   },
 };
 
 // Fallback for categories not in the metadata
 const currentCategoryMeta = categoryMetadata[category] || {
   title: category.charAt(0).toUpperCase() + category.slice(1),
-  color: 'gray',
-  icon: '/icons/default.svg',
+  color: "gray",
+  icon: "/icons/default.svg",
 };
 ---
 
@@ -94,10 +95,10 @@ const currentCategoryMeta = categoryMetadata[category] || {
   tableOfContents={headings}
 >
   <div class="container mx-auto px-4 pt-20 pb-16">
-    <div class="max-w-4xl mx-auto">
+    <div class="mx-auto max-w-4xl">
       <!-- Breadcrumb Navigation -->
       <div
-        class="flex items-center gap-2 mb-6 text-sm text-slate-500 dark:text-slate-400"
+        class="mb-6 flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400"
       >
         <a href="/docs" class="hover:text-blue-600 dark:hover:text-blue-400"
           >Docs</a
@@ -112,21 +113,21 @@ const currentCategoryMeta = categoryMetadata[category] || {
       </div>
 
       <!-- Badges -->
-      <div class="flex flex-wrap justify-center gap-2 mb-6">
+      <div class="mb-6 flex flex-wrap justify-center gap-2">
         {
           entry.data.tags?.map((tag) => {
-            const tagColors = {
-              html: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+            const tagColors: { [key: string]: string } = {
+              html: "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300",
               accessibility:
-                'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
+                "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
               semantics:
-                'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
-              css: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+                "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
+              css: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
               // Add more tag mappings as needed
             };
             const tagClass =
               tagColors[tag.toLowerCase()] ||
-              'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300';
+              "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300";
             return (
               <Badge variant="secondary" className={`${tagClass}`}>
                 {tag}
@@ -138,7 +139,7 @@ const currentCategoryMeta = categoryMetadata[category] || {
 
       <!-- Title with Gradient -->
       <h1
-        class="text-5xl md:text-7xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 dark:from-slate-100 dark:via-blue-100 dark:to-slate-100 bg-clip-text text-transparent mb-6 text-center"
+        class="mb-6 bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 bg-clip-text text-center text-5xl font-bold text-transparent md:text-7xl dark:from-slate-100 dark:via-blue-100 dark:to-slate-100"
       >
         {entry.data.title}
       </h1>
@@ -146,7 +147,7 @@ const currentCategoryMeta = categoryMetadata[category] || {
       <!-- Description -->
       {
         entry.data.description && (
-          <p class="text-xl text-slate-600 dark:text-slate-300 mb-8 leading-relaxed max-w-3xl mx-auto text-center">
+          <p class="mx-auto mb-8 max-w-3xl text-center text-xl leading-relaxed text-slate-600 dark:text-slate-300">
             {entry.data.description}
           </p>
         )
@@ -154,13 +155,13 @@ const currentCategoryMeta = categoryMetadata[category] || {
 
       <!-- Date Info -->
       <div
-        class="flex items-center justify-center gap-6 text-sm text-slate-500 dark:text-slate-400 mb-8"
+        class="mb-8 flex items-center justify-center gap-6 text-sm text-slate-500 dark:text-slate-400"
       >
         {
           entry.data.publishedDate && (
             <div class="flex items-center gap-2">
               <svg
-                class="w-4 h-4"
+                class="h-4 w-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -172,10 +173,10 @@ const currentCategoryMeta = categoryMetadata[category] || {
                   d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                 />
               </svg>
-              Published:{' '}
+              Published:{" "}
               {new Date(entry.data.publishedDate).toLocaleDateString(
                 undefined,
-                { year: 'numeric', month: 'short', day: 'numeric' }
+                { year: "numeric", month: "short", day: "numeric" },
               )}
             </div>
           )
@@ -184,7 +185,7 @@ const currentCategoryMeta = categoryMetadata[category] || {
           entry.data.updatedDate && (
             <div class="flex items-center gap-2">
               <svg
-                class="w-4 h-4"
+                class="h-4 w-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -196,11 +197,11 @@ const currentCategoryMeta = categoryMetadata[category] || {
                   d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                 />
               </svg>
-              Updated:{' '}
+              Updated:{" "}
               {new Date(entry.data.updatedDate).toLocaleDateString(undefined, {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
+                year: "numeric",
+                month: "short",
+                day: "numeric",
               })}
             </div>
           )
@@ -210,7 +211,7 @@ const currentCategoryMeta = categoryMetadata[category] || {
   </div>
   <!-- Content -->
   <article
-    class="prose prose-slate max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-img:rounded-lg"
+    class="prose prose-slate dark:prose-invert prose-headings:scroll-mt-24 prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-img:rounded-lg max-w-none"
   >
     <Content />
   </article>
@@ -220,21 +221,21 @@ const currentCategoryMeta = categoryMetadata[category] || {
     relatedDocs.length > 0 && (
       <RelatedDocsEnhanced
         categoryMetadata={categoryMetadata}
-        relatedDocs={relatedDocs || []}
+        relatedDocs={relatedDocs as unknown as RelatedDoc[]}
       />
     )
   }
   <!-- Edit Page Link -->
-  <div class="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800">
+  <div class="mt-16 border-t border-slate-200 pt-8 dark:border-slate-800">
     <div class="flex justify-center">
       <a
         href={`https://github.com/alireza-akbarzadeh/frontend-handbooks/tree/master/src/content/docs/${entry.slug}.mdx`}
         target="_blank"
-        class="group inline-flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 shadow-sm hover:shadow-md hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200"
+        class="group inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-sm transition-all duration-200 hover:border-blue-500 hover:text-blue-600 hover:shadow-md dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:text-blue-400"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-4 w-4 text-slate-400 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors"
+          class="h-4 w-4 text-slate-400 transition-colors group-hover:text-blue-500 dark:group-hover:text-blue-400"
           viewBox="0 0 20 20"
           fill="currentColor"
         >

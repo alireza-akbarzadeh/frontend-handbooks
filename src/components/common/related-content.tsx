@@ -1,46 +1,11 @@
 "use client";
 
+import type { InferEntrySchema } from "astro:content";
 import { ExternalLink } from "lucide-react";
 import { useState } from "react";
+import type { RelatedDocsProps } from "../../types/docs";
 
 // Astro content collection types
-interface RenderedContent {
-  html: string;
-}
-
-interface Render {
-  ".md": RenderedContent;
-}
-
-interface InferEntrySchema {
-  title: string;
-  description?: string;
-  [key: string]: any;
-}
-
-interface RelatedDoc {
-  id: string;
-  render(): Render[".md"];
-  slug: string;
-  body: string;
-  collection: "docs";
-  data: InferEntrySchema;
-  rendered?: RenderedContent;
-  filePath?: string;
-}
-
-interface CategoryMetadata {
-  [key: string]: {
-    title: string;
-    color: string;
-    icon: string;
-  };
-}
-
-interface RelatedDocsProps {
-  relatedDocs: RelatedDoc[];
-  categoryMetadata: CategoryMetadata;
-}
 
 // Generate dynamic gradient colors based on category color
 const generateCategoryGradients = (color: string, index: number) => {
@@ -152,25 +117,25 @@ export function RelatedDocsEnhanced({
   if (relatedDocs.length === 0) return null;
 
   return (
-    <div className="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800 relative">
+    <div className="relative mt-16 border-t border-slate-200 pt-8 dark:border-slate-800">
       {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50/50 via-white/30 to-slate-100/50 dark:from-slate-900/30 dark:via-slate-800/20 dark:to-slate-900/30 rounded-2xl opacity-60 animate-pulse"></div>
+      <div className="absolute inset-0 animate-pulse rounded-2xl bg-gradient-to-br from-slate-50/50 via-white/30 to-slate-100/50 opacity-60 dark:from-slate-900/30 dark:via-slate-800/20 dark:to-slate-900/30"></div>
 
       <div className="relative">
         {/* Enhanced Header */}
-        <div className="flex items-center gap-3 mb-8 group animate-in fade-in-0 slide-in-from-top-4 duration-700">
+        <div className="group animate-in fade-in-0 slide-in-from-top-4 mb-8 flex items-center gap-3 duration-700">
           <div className="relative">
-            <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-spin-slow"></div>
-            <div className="absolute inset-0 w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 blur-sm opacity-50 animate-pulse"></div>
+            <div className="animate-spin-slow h-3 w-3 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
+            <div className="absolute inset-0 h-3 w-3 animate-pulse rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-50 blur-sm"></div>
           </div>
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 dark:from-slate-100 dark:via-slate-300 dark:to-slate-100 bg-clip-text text-transparent group-hover:from-blue-600 group-hover:via-purple-600 group-hover:to-pink-600 transition-all duration-500">
+          <h2 className="bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 bg-clip-text text-2xl font-bold text-transparent transition-all duration-500 group-hover:from-blue-600 group-hover:via-purple-600 group-hover:to-pink-600 dark:from-slate-100 dark:via-slate-300 dark:to-slate-100">
             Related Documentation
           </h2>
-          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-700 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-200 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 dark:via-slate-700"></div>
         </div>
 
         {/* Enhanced Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {relatedDocs.map((doc, index) => {
             const [docCategory] = doc.slug.split("/");
             const catMeta = categoryMetadata[docCategory] || {
@@ -184,7 +149,7 @@ export function RelatedDocsEnhanced({
             return (
               <div
                 key={doc.id}
-                className={`relative group transform transition-all duration-500 hover:scale-[1.02] animate-in fade-in-0 slide-in-from-bottom-4`}
+                className={`group animate-in fade-in-0 slide-in-from-bottom-4 relative transform transition-all duration-500 hover:scale-[1.02]`}
                 style={{ animationDelay: `${index * 100}ms` }}
                 onMouseEnter={() => setHoveredDoc(doc.id)}
                 onMouseLeave={() => setHoveredDoc(null)}
@@ -206,12 +171,12 @@ export function RelatedDocsEnhanced({
 
                 <a
                   href={`/docs/${doc.slug}`}
-                  className="relative block p-6 rounded-xl backdrop-blur-sm transition-all duration-300 hover:shadow-xl group/link"
+                  className="group/link relative block rounded-xl p-6 backdrop-blur-sm transition-all duration-300 hover:shadow-xl"
                 >
                   {/* Category Header with Icon */}
-                  <div className="flex items-center gap-3 mb-4">
+                  <div className="mb-4 flex items-center gap-3">
                     <div
-                      className={`relative p-2 rounded-lg bg-gradient-to-br ${
+                      className={`relative rounded-lg bg-gradient-to-br p-2 ${
                         colors.gradient
                       } shadow-lg transition-all duration-300 ${
                         isHovered ? "scale-110 rotate-3" : ""
@@ -222,14 +187,14 @@ export function RelatedDocsEnhanced({
                         alt={catMeta.title}
                         width="16"
                         height="16"
-                        className="w-4 h-4 brightness-0 invert drop-shadow-sm"
+                        className="h-4 w-4 brightness-0 drop-shadow-sm invert"
                       />
                       {isHovered && (
-                        <div className="absolute inset-0 rounded-lg bg-white/20 animate-ping"></div>
+                        <div className="absolute inset-0 animate-ping rounded-lg bg-white/20"></div>
                       )}
                     </div>
                     <span
-                      className={`text-sm font-semibold bg-gradient-to-r ${
+                      className={`bg-gradient-to-r text-sm font-semibold ${
                         colors.gradient
                       } bg-clip-text text-transparent transition-all duration-300 ${
                         isHovered ? "scale-105" : ""
@@ -238,7 +203,7 @@ export function RelatedDocsEnhanced({
                       {catMeta.title}
                     </span>
                     <div
-                      className={`flex-1 h-px bg-gradient-to-r ${
+                      className={`h-px flex-1 bg-gradient-to-r ${
                         colors.gradient
                       } opacity-30 transition-all duration-300 ${
                         isHovered ? "opacity-60" : ""
@@ -247,26 +212,26 @@ export function RelatedDocsEnhanced({
                   </div>
 
                   {/* Document Title */}
-                  <h3 className="font-bold text-lg mb-3 text-slate-900 dark:text-slate-100 group-hover/link:text-slate-700 dark:group-hover/link:text-slate-200 transition-colors duration-300">
+                  <h3 className="mb-3 text-lg font-bold text-slate-900 transition-colors duration-300 group-hover/link:text-slate-700 dark:text-slate-100 dark:group-hover/link:text-slate-200">
                     {doc.data.title}
                   </h3>
 
                   {/* Description */}
                   {doc.data.description && (
-                    <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-4 group-hover/link:text-slate-500 dark:group-hover/link:text-slate-300 transition-colors duration-300">
+                    <p className="mb-4 line-clamp-2 text-sm text-slate-600 transition-colors duration-300 group-hover/link:text-slate-500 dark:text-slate-400 dark:group-hover/link:text-slate-300">
                       {doc.data.description}
                     </p>
                   )}
 
                   {/* Document metadata */}
-                  <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400 mb-4">
+                  <div className="mb-4 flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400">
                     <span className="flex items-center gap-1">
-                      <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
+                      <div className="h-1.5 w-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
                       {doc.collection}
                     </span>
                     {doc.filePath && (
                       <span className="flex items-center gap-1 truncate">
-                        <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
+                        <div className="h-1.5 w-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
                         {doc.filePath.split("/").pop()}
                       </span>
                     )}
@@ -276,21 +241,21 @@ export function RelatedDocsEnhanced({
                   <div
                     className={`flex items-center gap-2 text-sm font-medium transition-all duration-300 ${
                       isHovered
-                        ? `text-transparent bg-gradient-to-r ${colors.gradient} bg-clip-text translate-x-1`
+                        ? `bg-gradient-to-r text-transparent ${colors.gradient} translate-x-1 bg-clip-text`
                         : `${colors.textColor} opacity-0 group-hover/link:opacity-100`
                     }`}
                   >
                     <span>Read more</span>
                     <ExternalLink
-                      className={`w-4 h-4 transition-all duration-300 ${
-                        isHovered ? "scale-110 translate-x-1" : ""
+                      className={`h-4 w-4 transition-all duration-300 ${
+                        isHovered ? "translate-x-1 scale-110" : ""
                       }`}
                     />
                   </div>
 
                   {/* Hover gradient overlay */}
                   <div
-                    className={`absolute inset-0 rounded-xl bg-gradient-to-br ${colors.gradient} opacity-0 group-hover/link:opacity-5 transition-opacity duration-300 pointer-events-none`}
+                    className={`absolute inset-0 rounded-xl bg-gradient-to-br ${colors.gradient} pointer-events-none opacity-0 transition-opacity duration-300 group-hover/link:opacity-5`}
                   ></div>
                 </a>
               </div>
@@ -299,9 +264,9 @@ export function RelatedDocsEnhanced({
         </div>
 
         {/* Floating gradient orbs for ambient effect */}
-        <div className="absolute top-8 right-8 w-32 h-32 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl animate-pulse pointer-events-none"></div>
+        <div className="pointer-events-none absolute top-8 right-8 h-32 w-32 animate-pulse rounded-full bg-gradient-to-r from-blue-400/10 to-purple-400/10 blur-3xl"></div>
         <div
-          className="absolute bottom-8 left-8 w-24 h-24 bg-gradient-to-r from-pink-400/10 to-orange-400/10 rounded-full blur-2xl animate-pulse pointer-events-none"
+          className="pointer-events-none absolute bottom-8 left-8 h-24 w-24 animate-pulse rounded-full bg-gradient-to-r from-pink-400/10 to-orange-400/10 blur-2xl"
           style={{ animationDelay: "1s" }}
         ></div>
       </div>

@@ -1,26 +1,47 @@
-import type { CollectionEntry } from "astro:content";
+import type { CollectionEntry, InferEntrySchema } from "astro:content";
 
-// Define the Doc type using the CollectionEntry utility
 export type Doc = CollectionEntry<"docs">;
 
-// Helper type for navigation items
 export interface NavigationItem {
   title: string;
   slug: string;
   children?: NavigationItem[];
 }
 
-// Helper type for category metadata
-export interface CategoryMetadata {
-  title: string;
-  description: string;
-  color: string;
-  icon: string;
-}
-
-// Helper type for navigation categories
 export interface NavigationCategory {
   title: string;
   slug: string;
   items: NavigationItem[];
+}
+
+interface RenderedContent {
+  html: string;
+}
+
+interface Render {
+  ".md": RenderedContent;
+}
+
+export interface RelatedDoc {
+  id: string;
+  render(): Render[".md"];
+  slug: string;
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}
+
+export interface CategoryMetadata {
+  [key: string]: {
+    title: string;
+    color: string;
+    icon: string;
+  };
+}
+
+export interface RelatedDocsProps {
+  relatedDocs: RelatedDoc[];
+  categoryMetadata: CategoryMetadata;
 }
