@@ -1,4 +1,22 @@
+---
+// import { PlaygroundEditor } from "../../components/editor/editor";
+import Footer from "../../components/common/footer.astro";
+import Header from "../../components/common/header.astro";
+import RootLayout from "../../layouts/RootLayout.astro";
 
+// export const prerender = false;
 ---
 
-<h3>playground </h3>
+<RootLayout>
+  <Header />
+  <main class="flex h-screen flex-col">
+    <div class="flex-1 p-6">
+      <div
+        class="h-[calc(100vh-200px)] overflow-hidden rounded-xl border border-gray-200 shadow-lg dark:border-gray-800"
+      >
+        <!-- <PlaygroundEditor playgroundId="main" client:only="react" /> -->
+      </div>
+    </div>
+  </main>
+  <Footer />
+</RootLayout>

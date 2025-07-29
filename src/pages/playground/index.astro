@@ -1,8 +1,10 @@
 ---
-import { PlaygroundEditor } from "../../components/common/editor";
+import { PlaygroundEditor } from "../../components/editor/editor";
 import Footer from "../../components/common/footer.astro";
 import Header from "../../components/common/header.astro";
 import RootLayout from "../../layouts/RootLayout.astro";
+
+export const prerender = false;
 ---
 
 <RootLayout>
@@ -12,7 +14,7 @@ import RootLayout from "../../layouts/RootLayout.astro";
       <div
         class="h-[calc(100vh-200px)] overflow-hidden rounded-xl border border-gray-200 shadow-lg dark:border-gray-800"
       >
-        <PlaygroundEditor client:only="react" />
+        <PlaygroundEditor playgroundId="main" client:only="react" />
       </div>
     </div>
   </main>
