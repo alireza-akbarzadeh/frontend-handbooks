@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import FileDropdown from "./file-dropdown";
 import { FileIcon, PlusIcon } from "lucide-react";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "../ui/context-menu";
 
 // Define the type for a file object
 export type PlaygroundFile = {
@@ -45,15 +51,25 @@ export default function FileTree({
       )}
       <ul className="flex-1 space-y-1">
         {files.map((file) => (
-          <li key={file.name}>
-            <button
-              className="flex w-full items-center rounded px-2 py-1 text-left text-sm hover:bg-gray-700"
-              onClick={() => setActiveFile(file)}
-            >
-              <FileIcon className="mr-2 h-4 w-4 text-gray-500" />
-              {file.name}
-            </button>
-          </li>
+          <ContextMenu key={file.name}>
+            <ContextMenuTrigger>
+              <li key={file.name}>
+                <button
+                  className="flex w-full items-center rounded px-2 py-1 text-left text-sm hover:bg-gray-700"
+                  onClick={() => setActiveFile(file)}
+                >
+                  <FileIcon className="mr-2 h-4 w-4 text-gray-500" />
+                  {file.name}
+                </button>
+              </li>
+            </ContextMenuTrigger>
+            <ContextMenuContent>
+              <ContextMenuItem>Rename</ContextMenuItem>
+              <ContextMenuItem>Delete</ContextMenuItem>
+              <ContextMenuItem>Copy</ContextMenuItem>
+              <ContextMenuItem>Cut</ContextMenuItem>
+            </ContextMenuContent>
+          </ContextMenu>
         ))}
       </ul>
     </aside>

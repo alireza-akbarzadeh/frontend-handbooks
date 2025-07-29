@@ -12,7 +12,7 @@ import {
   FilePlus,
   PanelLeft,
 } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../components/ui/tooltip"; // Assuming this is the path to your Shadcn tooltip
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../components/ui/tooltip"; 
 
 export type ToolbarProps = {
   onRun: () => void;
@@ -63,7 +63,7 @@ export default function Toolbar({
               <button
                 className="flex items-center rounded p-2 text-sm hover:bg-gray-700"
                 onClick={item.onClick}
-                title={item.title} // Keep title for accessibility even with tooltip
+                title={item.title} 
               >
                 <item.icon className="h-5 w-5" />
               </button>
