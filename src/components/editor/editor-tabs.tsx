@@ -15,7 +15,6 @@ export type EditorTabsProps = {
   onCloseFile?: (file: PlaygroundFile) => void;
   onRenameFile?: (file: PlaygroundFile, newName: string) => void;
 };
-
 export default function EditorTabs({
   files,
   activeFile,
@@ -25,50 +24,33 @@ export default function EditorTabs({
   onRenameFile,
 }: EditorTabsProps) {
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="flex border-b bg-slate-50 dark:bg-slate-900">
-        {files.map((file) => (
-          <div
-            key={file.name}
-            className={`group flex items-center border-r last:border-r-0 ${
-              file === activeFile
-                ? "bg-emerald-200 dark:bg-slate-800"
-                : "hover:bg-slate-200 dark:hover:bg-slate-700"
-            }`}
+    <div className="flex border-b border-gray-700 bg-gray-800 text-gray-300">
+      {files.map((file) => (
+        <div
+          key={file.name}
+          className={`group flex items-center border-r border-gray-700 px-3 py-2 text-sm ${
+            file === activeFile
+              ? "bg-gray-900 text-gray-100"
+              : "hover:bg-gray-700"
+          }`}
+        >
+          <button
+            className="flex items-center gap-2"
+            onClick={() => setActiveFile(file)}
+            title={file.name}
           >
-            <button
-              className="flex items-center gap-2 px-3 py-2 font-mono text-sm"
-              onClick={() => setActiveFile(file)}
-              title={file.name}
-            >
-              <FileText className="mr-1 h-4 w-4" />
-              {file.name}
-            </button>
-            <button
-              className="ml-1 p-1 opacity-60 hover:opacity-100"
-              onClick={() => onCloseFile?.(file)}
-              title="Close"
-            >
-              <X className="h-4 w-4" />
-            </button>
-          </div>
-        ))}
-      </div>
-      {activeFile && (
-        <textarea
-          className="w-full flex-1 resize-none bg-white p-4 font-mono text-sm outline-none dark:bg-slate-900"
-          value={activeFile.content}
-          placeholder="Edit file content here..."
-          title={`Editor for ${activeFile.name}`}
-          onChange={(e) => {
-            setFiles(
-              files.map((f) =>
-                f === activeFile ? { ...f, content: e.target.value } : f,
-              ),
-            );
-          }}
-        />
-      )}
+            <FileText className="h-4 w-4 text-gray-500" />
+            {file.name}
+          </button>
+          <button
+            className="ml-2 opacity-60 hover:opacity-100"
+            onClick={() => onCloseFile?.(file)}
+            title="Close"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      ))}
     </div>
   );
 }

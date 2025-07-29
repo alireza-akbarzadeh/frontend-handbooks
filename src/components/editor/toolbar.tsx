@@ -4,14 +4,15 @@ import {
   Save,
   RotateCcw,
   Copy,
-  FolderPlus,
   Trash2,
   Download,
   Upload,
   Settings,
   Terminal,
   FilePlus,
+  PanelLeft,
 } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../components/ui/tooltip"; // Assuming this is the path to your Shadcn tooltip
 
 export type ToolbarProps = {
   onRun: () => void;
@@ -24,8 +25,8 @@ export type ToolbarProps = {
   onUpload?: () => void;
   onSettings?: () => void;
   onTerminal?: () => void;
+  onToggleSidebar?: () => void;
 };
-
 export default function Toolbar({
   onRun,
   onSave,
@@ -37,39 +38,42 @@ export default function Toolbar({
   onUpload,
   onSettings,
   onTerminal,
+  onToggleSidebar,
 }: ToolbarProps) {
+  const toolbarItems = [
+    { icon: PanelLeft, title: "Toggle Sidebar", onClick: onToggleSidebar },
+    { icon: Play, title: "Run (Ctrl+Enter)", onClick: onRun },
+    { icon: Save, title: "Save (Ctrl+S)", onClick: onSave },
+    { icon: RotateCcw, title: "Reset", onClick: onReset },
+    { icon: Copy, title: "Copy Code", onClick: onCopy },
+    { icon: FilePlus, title: "New File", onClick: onNewFile },
+    { icon: Trash2, title: "Delete File", onClick: onDeleteFile },
+    { icon: Download, title: "Download", onClick: onDownload },
+    { icon: Upload, title: "Upload", onClick: onUpload },
+    { icon: Terminal, title: "Show Terminal", onClick: onTerminal },
+    { icon: Settings, title: "Settings", onClick: onSettings },
+  ];
+
   return (
-    <div className="flex items-center gap-2 border-b bg-white p-2 dark:bg-slate-800">
-      <button className="btn" onClick={onRun} title="Run (Ctrl+Enter)">
-        <Play className="mr-1 h-4 w-4" /> Run
-      </button>
-      <button className="btn" onClick={onSave} title="Save (Ctrl+S)">
-        <Save className="mr-1 h-4 w-4" /> Save
-      </button>
-      <button className="btn" onClick={onReset} title="Reset">
-        <RotateCcw className="mr-1 h-4 w-4" /> Reset
-      </button>
-      <button className="btn" onClick={onCopy} title="Copy Code">
-        <Copy className="mr-1 h-4 w-4" /> Copy
-      </button>
-      <button className="btn" onClick={onNewFile} title="New File">
-        <FilePlus className="mr-1 h-4 w-4" /> New
-      </button>
-      <button className="btn" onClick={onDeleteFile} title="Delete File">
-        <Trash2 className="mr-1 h-4 w-4" /> Delete
-      </button>
-      <button className="btn" onClick={onDownload} title="Download">
-        <Download className="mr-1 h-4 w-4" /> Download
-      </button>
-      <button className="btn" onClick={onUpload} title="Upload">
-        <Upload className="mr-1 h-4 w-4" /> Upload
-      </button>
-      <button className="btn" onClick={onTerminal} title="Show Terminal">
-        <Terminal className="mr-1 h-4 w-4" /> Terminal
-      </button>
-      <button className="btn" onClick={onSettings} title="Settings">
-        <Settings className="mr-1 h-4 w-4" /> Settings
-      </button>
-    </div>
+    <TooltipProvider>
+      <div className="flex flex-col items-center gap-4 border-r border-gray-700 bg-gray-800 p-2 text-gray-300">
+        {toolbarItems.map((item, index) => (
+          <Tooltip key={index}>
+            <TooltipTrigger asChild>
+              <button
+                className="flex items-center rounded p-2 text-sm hover:bg-gray-700"
+                onClick={item.onClick}
+                title={item.title} // Keep title for accessibility even with tooltip
+              >
+                <item.icon className="h-5 w-5" />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{item.title}</p>
+            </TooltipContent>
+          </Tooltip>
+        ))}
+      </div>
+    </TooltipProvider>
   );
 }

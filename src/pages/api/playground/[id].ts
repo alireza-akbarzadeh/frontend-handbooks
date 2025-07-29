@@ -2,6 +2,8 @@ import type { APIRoute } from "astro";
 import { readFile, writeFile } from "fs/promises";
 import { resolve } from "path";
 
+export const prerender = false;
+
 // Make sure this path is absolute and points to your data directory
 const DATA_PATH = resolve(process.cwd(), "data", "playgrounds.json");
 

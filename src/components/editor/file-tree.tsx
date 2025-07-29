@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import FileDropdown from "./file-dropdown";
+import { FileIcon, PlusIcon } from "lucide-react";
 
 // Define the type for a file object
 export type PlaygroundFile = {
@@ -22,15 +23,15 @@ export default function FileTree({
   const [showInput, setShowInput] = useState(false);
 
   return (
-    <aside className="flex w-48 flex-col border-r bg-slate-100 p-2 dark:bg-slate-900">
+    <aside className="flex w-48 flex-col border-r border-gray-700 bg-gray-900 p-2 text-gray-300">
       <div className="mb-2 flex items-center justify-between">
-        <span className="text-xs font-bold text-slate-500">Files</span>
+        <span className="text-xs font-bold text-gray-500">Files</span>
         <button
-          className="text-lg text-emerald-600 hover:text-emerald-800"
+          className="text-gray-400 hover:text-gray-100"
           onClick={() => setShowInput(true)}
           title="Add file"
         >
-          ＋
+          <PlusIcon className="h-4 w-4" />
         </button>
       </div>
       {showInput && (
@@ -46,10 +47,10 @@ export default function FileTree({
         {files.map((file) => (
           <li key={file.name}>
             <button
-              className="w-full rounded px-2 py-1 text-left hover:bg-emerald-100 dark:hover:bg-slate-800"
+              className="flex w-full items-center rounded px-2 py-1 text-left text-sm hover:bg-gray-700"
               onClick={() => setActiveFile(file)}
             >
-              <span className="mr-2">📄</span>
+              <FileIcon className="mr-2 h-4 w-4 text-gray-500" />
               {file.name}
             </button>
           </li>
