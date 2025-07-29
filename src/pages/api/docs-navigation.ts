@@ -1,32 +1,32 @@
-import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
-import type { Doc, NavigationItem, NavigationCategory } from '../../types/docs';
+import type { APIRoute } from "astro";
+import { getCollection } from "astro:content";
+import type { Doc, NavigationItem, NavigationCategory } from "../../types/docs";
 
 export const GET: APIRoute = async () => {
   try {
     // Fetch all docs
-    const allDocs = await getCollection('docs');
+    const allDocs = await getCollection("docs");
 
     // Group by category
     const categories = [
-      ...new Set(allDocs.map((doc: Doc) => doc.slug.split('/')[0])),
+      ...new Set(allDocs.map((doc: Doc) => doc.slug.split("/")[0])),
     ];
 
     // Category metadata
     const categoryMetadata: Record<string, { title: string }> = {
-      javascript: { title: 'JavaScript' },
-      html: { title: 'HTML' },
-      css: { title: 'CSS' },
-      git: { title: 'Git & GitHub' },
-      frameworks: { title: 'Frameworks' },
-      tools: { title: 'Developer Tools' },
+      javascript: { title: "JavaScript" },
+      html: { title: "HTML" },
+      css: { title: "CSS" },
+      git: { title: "Git & GitHub" },
+      frameworks: { title: "Frameworks" },
+      tools: { title: "Developer Tools" },
     };
 
     // Build navigation structure
     const navigation: NavigationCategory[] = categories.map((category) => {
       // Get all docs in this category
       const categoryDocs = allDocs.filter((doc: Doc) =>
-        doc.slug.startsWith(`${category}/`)
+        doc.slug.startsWith(`${category}/`),
       );
 
       // Sort by order property if available
@@ -57,24 +57,24 @@ export const GET: APIRoute = async () => {
     return new Response(JSON.stringify({ navigation }), {
       status: 200,
       headers: {
-        'docs-Type': 'application/json',
-        'Cache-Control': 'public, max-age=3600', // Cache for 1 hour
+        "docs-Type": "application/json",
+        "Cache-Control": "public, max-age=3600", // Cache for 1 hour
       },
     });
   } catch (error) {
     // Always return a Response object even in error case
-    console.error('Error generating navigation:', error);
+    console.error("Error generating navigation:", error);
     return new Response(
       JSON.stringify({
-        error: 'Failed to generate navigation',
+        error: "Failed to generate navigation",
         message: error instanceof Error ? error.message : String(error),
       }),
       {
         status: 500,
         headers: {
-          'docs-Type': 'application/json',
+          "docs-Type": "application/json",
         },
-      }
+      },
     );
   }
 };

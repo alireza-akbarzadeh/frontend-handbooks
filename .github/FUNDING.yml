@@ -10,4 +10,5 @@ lfx_crowdfunding: astro-react-tailwind-kit
 polar: alirezadev
 buy_me_a_coffee: alirezadev
 thanks_dev: alirezadev
-custom: ['https://alirezadev.dev/sponsor', 'https://buymeacoffee.com/alirezadev']
+custom:
+  ["https://alirezadev.dev/sponsor", "https://buymeacoffee.com/alirezadev"]

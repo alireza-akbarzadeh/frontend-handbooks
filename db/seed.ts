@@ -1,3 +1,3 @@
-import { db, } from 'astro:db';
+import { db } from "astro:db";
 
-export default async function() {}
+export default async function () {}

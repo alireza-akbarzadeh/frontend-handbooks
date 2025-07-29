@@ -1,5 +1,5 @@
-import { auth } from '@/lib/auth'; // import your Better Auth instance
-import type { APIRoute } from 'astro';
+import { auth } from "@/lib/auth"; // import your Better Auth instance
+import type { APIRoute } from "astro";
 
 export const prerender = false; // Not needed in 'server' mode
 

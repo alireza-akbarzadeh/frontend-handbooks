@@ -1,7 +1,7 @@
-import type { CollectionEntry } from 'astro:content';
+import type { CollectionEntry } from "astro:content";
 
 // Define the Doc type using the CollectionEntry utility
-export type Doc = CollectionEntry<'docs'>;
+export type Doc = CollectionEntry<"docs">;
 
 // Helper type for navigation items
 export interface NavigationItem {

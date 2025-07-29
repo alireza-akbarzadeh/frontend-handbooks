@@ -1,5 +1,5 @@
-import { ExternalLink } from 'lucide-react';
-import { useState } from 'react';
+import { ExternalLink } from "lucide-react";
+import { useState } from "react";
 
 interface Doc {
   slug: string;
@@ -26,58 +26,58 @@ interface RelatedDocsProps {
 const generateCategoryGradients = (color: string, index: number) => {
   const gradientMap: { [key: string]: any } = {
     blue: {
-      gradient: 'from-blue-400 via-cyan-500 to-teal-500',
+      gradient: "from-blue-400 via-cyan-500 to-teal-500",
       bgGradient:
-        'from-blue-50 via-cyan-50 to-teal-50 dark:from-blue-950/20 dark:via-cyan-950/20 dark:to-teal-950/20',
+        "from-blue-50 via-cyan-50 to-teal-50 dark:from-blue-950/20 dark:via-cyan-950/20 dark:to-teal-950/20",
       borderGradient:
-        'from-blue-200 via-cyan-200 to-teal-200 dark:from-blue-800 dark:via-cyan-800 dark:to-teal-800',
-      shadowColor: 'shadow-blue-500/20 dark:shadow-blue-400/10',
-      textColor: 'text-blue-600 dark:text-blue-400',
+        "from-blue-200 via-cyan-200 to-teal-200 dark:from-blue-800 dark:via-cyan-800 dark:to-teal-800",
+      shadowColor: "shadow-blue-500/20 dark:shadow-blue-400/10",
+      textColor: "text-blue-600 dark:text-blue-400",
     },
     red: {
-      gradient: 'from-red-400 via-rose-500 to-pink-500',
+      gradient: "from-red-400 via-rose-500 to-pink-500",
       bgGradient:
-        'from-red-50 via-rose-50 to-pink-50 dark:from-red-950/20 dark:via-rose-950/20 dark:to-pink-950/20',
+        "from-red-50 via-rose-50 to-pink-50 dark:from-red-950/20 dark:via-rose-950/20 dark:to-pink-950/20",
       borderGradient:
-        'from-red-200 via-rose-200 to-pink-200 dark:from-red-800 dark:via-rose-800 dark:to-pink-800',
-      shadowColor: 'shadow-red-500/20 dark:shadow-red-400/10',
-      textColor: 'text-red-600 dark:text-red-400',
+        "from-red-200 via-rose-200 to-pink-200 dark:from-red-800 dark:via-rose-800 dark:to-pink-800",
+      shadowColor: "shadow-red-500/20 dark:shadow-red-400/10",
+      textColor: "text-red-600 dark:text-red-400",
     },
     green: {
-      gradient: 'from-green-400 via-emerald-500 to-teal-500',
+      gradient: "from-green-400 via-emerald-500 to-teal-500",
       bgGradient:
-        'from-green-50 via-emerald-50 to-teal-50 dark:from-green-950/20 dark:via-emerald-950/20 dark:to-teal-950/20',
+        "from-green-50 via-emerald-50 to-teal-50 dark:from-green-950/20 dark:via-emerald-950/20 dark:to-teal-950/20",
       borderGradient:
-        'from-green-200 via-emerald-200 to-teal-200 dark:from-green-800 dark:via-emerald-800 dark:to-teal-800',
-      shadowColor: 'shadow-green-500/20 dark:shadow-green-400/10',
-      textColor: 'text-green-600 dark:text-green-400',
+        "from-green-200 via-emerald-200 to-teal-200 dark:from-green-800 dark:via-emerald-800 dark:to-teal-800",
+      shadowColor: "shadow-green-500/20 dark:shadow-green-400/10",
+      textColor: "text-green-600 dark:text-green-400",
     },
     purple: {
-      gradient: 'from-purple-400 via-violet-500 to-indigo-500',
+      gradient: "from-purple-400 via-violet-500 to-indigo-500",
       bgGradient:
-        'from-purple-50 via-violet-50 to-indigo-50 dark:from-purple-950/20 dark:via-violet-950/20 dark:to-indigo-950/20',
+        "from-purple-50 via-violet-50 to-indigo-50 dark:from-purple-950/20 dark:via-violet-950/20 dark:to-indigo-950/20",
       borderGradient:
-        'from-purple-200 via-violet-200 to-indigo-200 dark:from-purple-800 dark:via-violet-800 dark:to-indigo-800',
-      shadowColor: 'shadow-purple-500/20 dark:shadow-purple-400/10',
-      textColor: 'text-purple-600 dark:text-purple-400',
+        "from-purple-200 via-violet-200 to-indigo-200 dark:from-purple-800 dark:via-violet-800 dark:to-indigo-800",
+      shadowColor: "shadow-purple-500/20 dark:shadow-purple-400/10",
+      textColor: "text-purple-600 dark:text-purple-400",
     },
     yellow: {
-      gradient: 'from-yellow-400 via-amber-500 to-orange-500',
+      gradient: "from-yellow-400 via-amber-500 to-orange-500",
       bgGradient:
-        'from-yellow-50 via-amber-50 to-orange-50 dark:from-yellow-950/20 dark:via-amber-950/20 dark:to-orange-950/20',
+        "from-yellow-50 via-amber-50 to-orange-50 dark:from-yellow-950/20 dark:via-amber-950/20 dark:to-orange-950/20",
       borderGradient:
-        'from-yellow-200 via-amber-200 to-orange-200 dark:from-yellow-800 dark:via-amber-800 dark:to-orange-800',
-      shadowColor: 'shadow-yellow-500/20 dark:shadow-yellow-400/10',
-      textColor: 'text-yellow-600 dark:text-yellow-400',
+        "from-yellow-200 via-amber-200 to-orange-200 dark:from-yellow-800 dark:via-amber-800 dark:to-orange-800",
+      shadowColor: "shadow-yellow-500/20 dark:shadow-yellow-400/10",
+      textColor: "text-yellow-600 dark:text-yellow-400",
     },
     gray: {
-      gradient: 'from-slate-400 via-gray-500 to-zinc-500',
+      gradient: "from-slate-400 via-gray-500 to-zinc-500",
       bgGradient:
-        'from-slate-50 via-gray-50 to-zinc-50 dark:from-slate-950/20 dark:via-gray-950/20 dark:to-zinc-950/20',
+        "from-slate-50 via-gray-50 to-zinc-50 dark:from-slate-950/20 dark:via-gray-950/20 dark:to-zinc-950/20",
       borderGradient:
-        'from-slate-200 via-gray-200 to-zinc-200 dark:from-slate-800 dark:via-gray-800 dark:to-zinc-800',
-      shadowColor: 'shadow-slate-500/20 dark:shadow-slate-400/10',
-      textColor: 'text-slate-600 dark:text-slate-400',
+        "from-slate-200 via-gray-200 to-zinc-200 dark:from-slate-800 dark:via-gray-800 dark:to-zinc-800",
+      shadowColor: "shadow-slate-500/20 dark:shadow-slate-400/10",
+      textColor: "text-slate-600 dark:text-slate-400",
     },
   };
 
@@ -122,11 +122,11 @@ export function RelatedDocsEnhanced({
         {/* Enhanced Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {relatedDocs.map((doc, index) => {
-            const [docCategory] = doc.slug.split('/');
+            const [docCategory] = doc.slug.split("/");
             const catMeta = categoryMetadata[docCategory] || {
-              color: 'gray',
-              title: 'Documentation',
-              icon: '',
+              color: "gray",
+              title: "Documentation",
+              icon: "",
             };
             const colors = generateCategoryGradients(catMeta.color, index);
             const isHovered = hoveredDoc === doc.slug;
@@ -145,8 +145,8 @@ export function RelatedDocsEnhanced({
                     colors.borderGradient
                   } p-[1px] transition-all duration-300 ${
                     isHovered
-                      ? 'opacity-100 shadow-lg ' + colors.shadowColor
-                      : 'opacity-60'
+                      ? "opacity-100 shadow-lg " + colors.shadowColor
+                      : "opacity-60"
                   }`}
                 >
                   <div
@@ -164,12 +164,12 @@ export function RelatedDocsEnhanced({
                       className={`relative p-2 rounded-lg bg-gradient-to-br ${
                         colors.gradient
                       } shadow-lg transition-all duration-300 ${
-                        isHovered ? 'scale-110 rotate-3' : ''
+                        isHovered ? "scale-110 rotate-3" : ""
                       }`}
                     >
                       {catMeta.icon ? (
                         <img
-                          src={catMeta.icon || '/placeholder.svg'}
+                          src={catMeta.icon || "/placeholder.svg"}
                           alt=""
                           width="16"
                           height="16"
@@ -186,7 +186,7 @@ export function RelatedDocsEnhanced({
                       className={`text-sm font-semibold bg-gradient-to-r ${
                         colors.gradient
                       } bg-clip-text text-transparent transition-all duration-300 ${
-                        isHovered ? 'scale-105' : ''
+                        isHovered ? "scale-105" : ""
                       }`}
                     >
                       {catMeta.title}
@@ -195,7 +195,7 @@ export function RelatedDocsEnhanced({
                       className={`flex-1 h-px bg-gradient-to-r ${
                         colors.gradient
                       } opacity-30 transition-all duration-300 ${
-                        isHovered ? 'opacity-60' : ''
+                        isHovered ? "opacity-60" : ""
                       }`}
                     ></div>
                   </div>
@@ -223,7 +223,7 @@ export function RelatedDocsEnhanced({
                     <span>Read more</span>
                     <ExternalLink
                       className={`w-4 h-4 transition-all duration-300 ${
-                        isHovered ? 'scale-110 translate-x-1' : ''
+                        isHovered ? "scale-110 translate-x-1" : ""
                       }`}
                     />
                   </div>
@@ -242,7 +242,7 @@ export function RelatedDocsEnhanced({
         <div className="absolute top-8 right-8 w-32 h-32 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl animate-pulse pointer-events-none"></div>
         <div
           className="absolute bottom-8 left-8 w-24 h-24 bg-gradient-to-r from-pink-400/10 to-orange-400/10 rounded-full blur-2xl animate-pulse pointer-events-none"
-          style={{ animationDelay: '1s' }}
+          style={{ animationDelay: "1s" }}
         ></div>
       </div>
     </div>

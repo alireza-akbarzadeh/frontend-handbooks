@@ -1,5 +1,5 @@
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 /**
  * Combines class names using clsx and tailwind-merge
@@ -20,7 +20,7 @@ export function extractHeadings(html: string) {
     const level = parseInt(match[1]);
     const id = match[2];
     // Remove HTML tags from heading text
-    const text = match[3].replace(/<[^>]*>/g, '');
+    const text = match[3].replace(/<[^>]*>/g, "");
 
     headings.push({ level, id, text });
   }

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { cn } from '../../lib/utils';
+import React, { useEffect, useState } from "react";
+import { cn } from "../../lib/utils";
 
 interface TableOfdocssProps {
   headings: {
@@ -10,7 +10,7 @@ interface TableOfdocssProps {
 }
 
 export function TableOfdocss({ headings }: TableOfdocssProps) {
-  const [activeId, setActiveId] = useState<string>('');
+  const [activeId, setActiveId] = useState<string>("");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -23,9 +23,9 @@ export function TableOfdocss({ headings }: TableOfdocssProps) {
         }
       },
       {
-        rootMargin: '0px 0px -80% 0px',
+        rootMargin: "0px 0px -80% 0px",
         threshold: 1.0, // Fully visible
-      }
+      },
     );
 
     const observedElements: HTMLElement[] = [];
@@ -59,9 +59,9 @@ export function TableOfdocss({ headings }: TableOfdocssProps) {
               <a
                 href={`#${id}`}
                 className={cn(
-                  'block text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-colors',
+                  "block text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-colors",
                   activeId === id &&
-                    'text-blue-600 dark:text-blue-400 font-medium'
+                    "text-blue-600 dark:text-blue-400 font-medium",
                 )}
               >
                 {text}
