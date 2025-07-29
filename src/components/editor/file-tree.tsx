@@ -52,7 +52,7 @@ export default function FileTree({
       <ul className="flex-1 space-y-1">
         {files.map((file) => (
           <ContextMenu key={file.name}>
-            <ContextMenuTrigger>
+            <ContextMenuTrigger onContextMenu={(e) => e.preventDefault()}>
               <li key={file.name}>
                 <button
                   className="flex w-full items-center rounded px-2 py-1 text-left text-sm hover:bg-gray-700"
